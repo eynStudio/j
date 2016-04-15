@@ -1,0 +1,49 @@
+{
+  "name": "j",
+  "version": "0.0.1",
+  "description": "angular2 bootstrap4 components",
+  "author": "eynStudio",
+  "license": "MIT",
+  "scripts": {
+    "start": "concurrently \"npm run build\" \"npm run dist\" \"gulp\" \"npm run demo\" \"npm run lite\" ",
+    "dist": "tsc -w -p cfg/tsconfig.system.json",
+    "build": "tsc -w",
+    "demo": "tsc -w -p cfg/tsconfig.demo.json",
+    "lite": "lite-server -c cfg/bs-config.json",
+    "typings": "typings",
+    "postinstall": "typings install"
+  },
+  "keywords": [
+    "angular2",
+    "es6",
+    "bootstrap",
+    "j",
+    "rxjs"
+  ],
+  "dependencies": {
+    "systemjs": "0.19.26",
+    "angular2": "2.0.0-beta.15",
+    "es6-shim": "^0.35.0",
+    "lodash": "^4.6.1",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.2",
+    "zone.js": "0.6.10",
+    "immutable": "^3.7.6",
+    "font-awesome": "^4.5.0",
+    "moment": "^2.11.1",
+    "bootstrap": "^4.0.0-alpha.2"
+  },
+  "devDependencies": {
+    "concurrently": "^2.0.0",
+    "lite-server": "^2.2.0",
+    "typescript": "^1.8.10",
+    "typings": "^0.7.12",
+    "gulp": ">=3.9.0",
+    "gulp-sass": "^2.0.4",
+    "gulp-rename":"1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eynStudio/j.git"
+  }
+}

@@ -1,0 +1,71 @@
+j-fw-bld{
+  display: inline-block;
+  height: 100%;
+  vertical-align: top;
+  min-width: 240px;
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: .25rem;
+  white-space: normal;
+
+  .card-header,.card-footer{
+    height: 2rem;
+    padding:.25rem .5rem;
+  }
+  .j-bld-toolbar{
+    height: 2rem;
+    padding: 0;
+    border-bottom: 1px solid lightgrey;
+
+    .j-bld-opts .btn{
+      padding:.25rem .5rem;
+    }
+  }
+  >.card-footer{
+    bottom: 0;
+    position: absolute;
+    width:100%;
+    .pagination{margin-top: 0;
+      .page-link{
+        padding:.125rem .375rem;
+      }
+    }
+  }
+
+  .j-bld-body {
+    position: absolute;
+    top: 4rem;
+    bottom: 0;
+    width: 100%;
+    overflow-y: auto;
+    &.j-wi-search {
+      top: 6rem;
+    }
+    &.j-wi-footer {
+      bottom: 2rem;
+    }
+  }
+  .list-group .list-group{
+    margin-right: -.75rem;
+    margin-bottom: -.25rem;
+  }
+  .list-group-item{
+    padding:.25rem .75rem;
+
+    &.router-link-active{
+      color: #fff;
+      background-color: #0275d8;
+      border-color: #0275d8;
+    }
+  }
+}
+
+.j-bld-w30{width:300px}
+.j-bld-w36{width:360px}
+.j-bld-w42{width:420px}
+.j-bld-w48{width:480px}
+.j-bld-w54{width:540px}
+.j-bld-w60{width:600px}
+.j-bld-w66{width:660px}
+.j-bld-w72{width:720px}

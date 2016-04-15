@@ -1,0 +1,3 @@
+{
+  "files": ["./bundles/**/*.{html,htm,css,js}","./app/**/*.{html,htm,css,js}"]
+}

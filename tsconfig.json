@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": false,
+    "moduleResolution": "node",
+    "removeComments": true,
+    "declaration": true,
+    "outDir": "./"
+  },
+  "files": [
+    "src/j/core.ts",
+    "src/j/base.ts",
+    "src/j/utils.ts",
+    "src/j/ui.ts",
+    "src/j/fw.ts",
+    "src/j/pipe.ts",
+    "node_modules/immutable/dist/immutable.d.ts",
+    "typings/browser.d.ts"
+  ]
+}

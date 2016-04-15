@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "system",
+    "target": "es5",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": false,
+    "moduleResolution": "node",
+    "removeComments": true,
+    "declaration": true,
+    "outFile": "../bundles/j.js"
+  },
+  "files": [
+    "../src/j.ts",
+    "../node_modules/immutable/dist/immutable.d.ts",
+    "../typings/browser.d.ts"
+  ]
+}
