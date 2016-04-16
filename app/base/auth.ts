@@ -14,10 +14,10 @@ export class JDemoAuth extends JAuth{
         Id:"000000000000000000000000",
         Name:"Admin",
         Navs:[
-            {Mc:"我的",Uri:'my',M:{},Nodes:[]}
+            {Mc:"UI界面效果",Uri:'ui',M:{},Nodes:[]}
             ]
     };
-    
+
     getNav() {
         this._logon(JDemoAuth.nav);
     }

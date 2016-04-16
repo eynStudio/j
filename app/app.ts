@@ -6,6 +6,7 @@ import {Router, RouteConfig} from "angular2/router";
 import {CORE_DIRECTIVES} from "angular2/common";
 import {JFw} from "j/fw/fw";
 import {JDemoAuth} from "./base/auth";
+import {JDemoUi} from "./ui/ui";
 
 @Component({
     selector: 'home',
@@ -24,7 +25,8 @@ export class Home {
     template: '<j-fw></j-fw>'
 })
 @RouteConfig([
-    { path: '/',    component: Home, as: 'Home' }
+    { path: '/',    component: Home, as: 'Home' },
+    { path: '/ui/...',    component: JDemoUi, as: 'JDemoUi' }
 ])
 export class App {
     constructor(private auth:JAuth) {
