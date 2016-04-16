@@ -1,10 +1,11 @@
-import {Component} from 'angular2/core';
+import {Component, provide} from 'angular2/core';
 import {JFwComp} from "j/fw/fw";
 import {JAuth} from "j/base/auth";
 import {JZd} from "j/base/zd";
 import {Router, RouteConfig} from "angular2/router";
 import {CORE_DIRECTIVES} from "angular2/common";
 import {JFw} from "j/fw/fw";
+import {JDemoAuth} from "./base/auth";
 
 @Component({
     selector: 'home',
@@ -19,10 +20,15 @@ export class Home {
 @Component({
     selector: 'my-app',
     directives:[JFwComp],
-    providers: [JZd,JAuth,JFw],
+    providers: [JZd,provide(JAuth, {useClass: JDemoAuth}),JFw],
     template: '<j-fw></j-fw>'
 })
 @RouteConfig([
     { path: '/',    component: Home, as: 'Home' }
 ])
-export class App { }
+export class App {
+    constructor(private auth:JAuth) {
+        auth.getNav();
+    }
+
+}
