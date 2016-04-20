@@ -4,3 +4,6 @@ function __export(m) {
 }
 __export(require("./ui/jui"));
 __export(require("./ui/page/page"));
+__export(require("./ui/nav/nav-tree"));
+__export(require("./ui/uploader/uploader"));
+__export(require("./ui/uploader/select"));

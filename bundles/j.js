@@ -1813,15 +1813,283 @@ System.register("j/ui/jui", ["j/utils/dom"], function(exports_21, context_21) {
         }
     }
 });
-System.register("j/ui", ["j/ui/jui", "j/ui/page/page"], function(exports_22, context_22) {
+System.register("j/ui/nav/nav-tree", ['angular2/core', 'angular2/router'], function(exports_22, context_22) {
     "use strict";
     var __moduleName = context_22 && context_22.id;
+    var core_14, router_6;
+    var NavTree;
+    return {
+        setters:[
+            function (core_14_1) {
+                core_14 = core_14_1;
+            },
+            function (router_6_1) {
+                router_6 = router_6_1;
+            }],
+        execute: function() {
+            NavTree = (function () {
+                function NavTree() {
+                }
+                NavTree = __decorate([
+                    core_14.Component({
+                        selector: 'nav-tree',
+                        directives: [router_6.ROUTER_DIRECTIVES, NavTree],
+                        inputs: ['nodes:nodes'],
+                        template: "<ul class=\"list-group\">\n<li *ngFor=\"#n of nodes\" class=\"list-group-item\">\n    <a [routerLink]=\"['./Edit',{id:n.M.Id}]\"><i class=\"fa {{'fa-'+n.M.Icon}}\"></i>{{n.Mc}}</a>\n    <i *ngIf=\"n.Nodes.length>0\" class=\"pull-right fa {{n.$open?'fa-chevron-up':'fa-chevron-down'}}\" (click)=\"n.$open=!n.$open\" ></i>\n    <nav-tree *ngIf=\"n.$open && n.Nodes.length>0\" [nodes]=\"n.Nodes\"></nav-tree>\n</li>\n</ul>"
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], NavTree);
+                return NavTree;
+            }());
+            exports_22("NavTree", NavTree);
+        }
+    }
+});
+System.register("j/ui/uploader/uploader", ['angular2/core'], function(exports_23, context_23) {
+    "use strict";
+    var __moduleName = context_23 && context_23.id;
+    var core_15;
+    var Ufile, JUploader;
+    return {
+        setters:[
+            function (core_15_1) {
+                core_15 = core_15_1;
+            }],
+        execute: function() {
+            Ufile = (function () {
+                function Ufile(id, originalName, size) {
+                    this.id = id;
+                    this.originalName = originalName;
+                    this.size = size;
+                    this.progress = {
+                        loaded: 0,
+                        total: 0,
+                        percent: 0
+                    };
+                    this.done = false;
+                    this.error = false;
+                    this.abort = false;
+                }
+                Ufile.prototype.setProgres = function (progress) {
+                    this.progress = progress;
+                };
+                Ufile.prototype.setError = function () {
+                    this.error = true;
+                    this.done = true;
+                };
+                Ufile.prototype.setAbort = function () {
+                    this.abort = true;
+                    this.done = true;
+                };
+                Ufile.prototype.onFinished = function (status, statusText, response) {
+                    this.status = status;
+                    this.statusText = statusText;
+                    this.response = response;
+                    this.done = true;
+                };
+                return Ufile;
+            }());
+            JUploader = (function () {
+                function JUploader() {
+                    this.cors = false;
+                    this.withCredentials = false;
+                    this.multiple = false;
+                    this.maxUploads = 3;
+                    this.allowedExtensions = [];
+                    this.maxSize = false;
+                    this.data = {};
+                    this.noParams = true;
+                    this.autoUpload = true;
+                    this.multipart = true;
+                    this.method = 'POST';
+                    this.debug = false;
+                    this.customHeaders = {};
+                    this.encodeHeaders = true;
+                    this.authTokenPrefix = "Bearer";
+                    this.authToken = undefined;
+                    this.fieldName = "file";
+                    this._queue = [];
+                    this._emitter = new core_15.EventEmitter(true);
+                }
+                JUploader.prototype.setOptions = function (options) {
+                    this.url = options.url != null ? options.url : this.url;
+                    this.cors = options.cors != null ? options.cors : this.cors;
+                    this.withCredentials = options.withCredentials != null ? options.withCredentials : this.withCredentials;
+                    this.multiple = options.multiple != null ? options.multiple : this.multiple;
+                    this.maxUploads = options.maxUploads != null ? options.maxUploads : this.maxUploads;
+                    this.allowedExtensions = options.allowedExtensions != null ? options.allowedExtensions : this.allowedExtensions;
+                    this.maxSize = options.maxSize != null ? options.maxSize : this.maxSize;
+                    this.data = options.data != null ? options.data : this.data;
+                    this.noParams = options.noParams != null ? options.noParams : this.noParams;
+                    this.autoUpload = options.autoUpload != null ? options.autoUpload : this.autoUpload;
+                    this.multipart = options.multipart != null ? options.multipart : this.multipart;
+                    this.method = options.method != null ? options.method : this.method;
+                    this.debug = options.debug != null ? options.debug : this.debug;
+                    this.customHeaders = options.customHeaders != null ? options.customHeaders : this.customHeaders;
+                    this.encodeHeaders = options.encodeHeaders != null ? options.encodeHeaders : this.encodeHeaders;
+                    this.authTokenPrefix = options.authTokenPrefix != null ? options.authTokenPrefix : this.authTokenPrefix;
+                    this.authToken = options.authToken != null ? options.authToken : this.authToken;
+                    this.fieldName = options.fieldName != null ? options.fieldName : this.fieldName;
+                    if (!this.multiple) {
+                        this.maxUploads = 1;
+                    }
+                };
+                JUploader.prototype.uploadFilesInQueue = function () {
+                    var _this = this;
+                    var newFiles = this._queue.filter(function (f) { return !f.uploading; });
+                    newFiles.forEach(function (f) {
+                        _this.uploadFile(f);
+                    });
+                };
+                ;
+                JUploader.prototype.uploadFile = function (file) {
+                    var _this = this;
+                    var xhr = new XMLHttpRequest();
+                    var form = new FormData();
+                    form.append(this.fieldName, file, file.name);
+                    var uploadingFile = new Ufile(this.generateRandomIndex(), file.name, file.size);
+                    var queueIndex = this._queue.findIndex(function (x) { return x === file; });
+                    xhr.upload.onprogress = function (e) {
+                        if (e.lengthComputable) {
+                            var percent = Math.round(e.loaded / e.total * 100);
+                            uploadingFile.setProgres({
+                                total: e.total,
+                                loaded: e.loaded,
+                                percent: percent
+                            });
+                            _this._emitter.emit(uploadingFile);
+                        }
+                    };
+                    xhr.upload.onabort = function (e) {
+                        uploadingFile.setAbort();
+                        _this._emitter.emit(uploadingFile);
+                    };
+                    xhr.upload.onerror = function (e) {
+                        uploadingFile.setError();
+                        _this._emitter.emit(uploadingFile);
+                    };
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            uploadingFile.onFinished(xhr.status, xhr.statusText, xhr.response);
+                            _this.removeFileFromQueue(queueIndex);
+                            _this._emitter.emit(uploadingFile);
+                        }
+                    };
+                    xhr.open(this.method, this.url, true);
+                    xhr.withCredentials = this.withCredentials;
+                    if (this.customHeaders) {
+                        Object.keys(this.customHeaders).forEach(function (key) {
+                            xhr.setRequestHeader(key, _this.customHeaders[key]);
+                        });
+                    }
+                    if (this.authToken) {
+                        xhr.setRequestHeader("Authorization", this.authTokenPrefix + " " + this.authToken);
+                    }
+                    xhr.send(form);
+                };
+                JUploader.prototype.addFilesToQueue = function (files) {
+                    for (var _i = 0, files_1 = files; _i < files_1.length; _i++) {
+                        var file = files_1[_i];
+                        if (this.isFile(file) && !this.inQueue(file)) {
+                            this._queue.push(file);
+                        }
+                    }
+                    if (this.autoUpload) {
+                        this.uploadFilesInQueue();
+                    }
+                };
+                JUploader.prototype.removeFileFromQueue = function (i) {
+                    this._queue.splice(i, 1);
+                };
+                JUploader.prototype.clearQueue = function () {
+                    this._queue = [];
+                };
+                JUploader.prototype.getQueueSize = function () {
+                    return this._queue.length;
+                };
+                JUploader.prototype.inQueue = function (file) {
+                    var fileInQueue = this._queue.filter(function (f) { return f === file; });
+                    return fileInQueue.length ? true : false;
+                };
+                JUploader.prototype.isFile = function (file) {
+                    return file !== null && (file instanceof Blob || (file.name && file.size));
+                };
+                JUploader.prototype.log = function (msg) {
+                    if (!this.debug) {
+                        return;
+                    }
+                    console.log('[JUploader]:', msg);
+                };
+                JUploader.prototype.generateRandomIndex = function () {
+                    return Math.random().toString(36).substring(7);
+                };
+                JUploader = __decorate([
+                    core_15.Injectable(), 
+                    __metadata('design:paramtypes', [])
+                ], JUploader);
+                return JUploader;
+            }());
+            exports_23("JUploader", JUploader);
+        }
+    }
+});
+System.register("j/ui/uploader/select", ['angular2/core', "j/ui/uploader/uploader"], function(exports_24, context_24) {
+    "use strict";
+    var __moduleName = context_24 && context_24.id;
+    var core_16, uploader_1;
+    var JUpload;
+    return {
+        setters:[
+            function (core_16_1) {
+                core_16 = core_16_1;
+            },
+            function (uploader_1_1) {
+                uploader_1 = uploader_1_1;
+            }],
+        execute: function() {
+            JUpload = (function () {
+                function JUpload(el) {
+                    var _this = this;
+                    this.el = el;
+                    this.onUpload = new core_16.EventEmitter();
+                    this.uploader = new uploader_1.JUploader();
+                    setTimeout(function () {
+                        _this.uploader.setOptions(_this.options);
+                    });
+                    this.uploader._emitter.subscribe(function (data) {
+                        _this.onUpload.emit(data);
+                    });
+                }
+                JUpload.prototype.onFiles = function () {
+                    var files = this.el.nativeElement.files;
+                    if (files.length) {
+                        this.uploader.addFilesToQueue(files);
+                    }
+                };
+                JUpload = __decorate([
+                    core_16.Directive({
+                        selector: '[j-upload]',
+                        inputs: ['options: j-upload'],
+                        outputs: ['onUpload'],
+                        host: { '(change)': 'onFiles()' }
+                    }), 
+                    __metadata('design:paramtypes', [core_16.ElementRef])
+                ], JUpload);
+                return JUpload;
+            }());
+            exports_24("JUpload", JUpload);
+        }
+    }
+});
+System.register("j/ui", ["j/ui/jui", "j/ui/page/page", "j/ui/nav/nav-tree", "j/ui/uploader/uploader", "j/ui/uploader/select"], function(exports_25, context_25) {
+    "use strict";
+    var __moduleName = context_25 && context_25.id;
     function exportStar_5(m) {
         var exports = {};
         for(var n in m) {
             if (n !== "default") exports[n] = m[n];
         }
-        exports_22(exports);
+        exports_25(exports);
     }
     return {
         setters:[
@@ -1830,20 +2098,29 @@ System.register("j/ui", ["j/ui/jui", "j/ui/page/page"], function(exports_22, con
             },
             function (page_2_1) {
                 exportStar_5(page_2_1);
+            },
+            function (nav_tree_1_1) {
+                exportStar_5(nav_tree_1_1);
+            },
+            function (uploader_2_1) {
+                exportStar_5(uploader_2_1);
+            },
+            function (select_1_1) {
+                exportStar_5(select_1_1);
             }],
         execute: function() {
         }
     }
 });
-System.register("j/utils", ["j/utils/dom"], function(exports_23, context_23) {
+System.register("j/utils", ["j/utils/dom"], function(exports_26, context_26) {
     "use strict";
-    var __moduleName = context_23 && context_23.id;
+    var __moduleName = context_26 && context_26.id;
     function exportStar_6(m) {
         var exports = {};
         for(var n in m) {
             if (n !== "default") exports[n] = m[n];
         }
-        exports_23(exports);
+        exports_26(exports);
     }
     return {
         setters:[
@@ -1854,23 +2131,23 @@ System.register("j/utils", ["j/utils/dom"], function(exports_23, context_23) {
         }
     }
 });
-System.register("j", ["j/base", "j/core", "j/fw", "j/pipe", "j/ui", "j/utils"], function(exports_24, context_24) {
+System.register("j", ["j/base", "j/core", "j/fw", "j/pipe", "j/ui", "j/utils"], function(exports_27, context_27) {
     "use strict";
-    var __moduleName = context_24 && context_24.id;
+    var __moduleName = context_27 && context_27.id;
     function exportStar_7(m) {
         var exports = {};
         for(var n in m) {
             if (n !== "default") exports[n] = m[n];
         }
-        exports_24(exports);
+        exports_27(exports);
     }
     return {
         setters:[
             function (base_1_1) {
                 exportStar_7(base_1_1);
             },
-            function (core_14_1) {
-                exportStar_7(core_14_1);
+            function (core_17_1) {
+                exportStar_7(core_17_1);
             },
             function (fw_2_1) {
                 exportStar_7(fw_2_1);

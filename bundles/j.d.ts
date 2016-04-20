@@ -517,9 +517,64 @@ declare module "j/ui/jui" {
         ngOnDestroy(): void;
     }
 }
+declare module "j/ui/nav/nav-tree" {
+    export class NavTree {
+    }
+}
+declare module "j/ui/uploader/uploader" {
+    import { EventEmitter } from 'angular2/core';
+    export class JUploader {
+        url: string;
+        cors: boolean;
+        withCredentials: boolean;
+        multiple: boolean;
+        maxUploads: number;
+        allowedExtensions: string[];
+        maxSize: boolean;
+        data: Object;
+        noParams: boolean;
+        autoUpload: boolean;
+        multipart: boolean;
+        method: string;
+        debug: boolean;
+        customHeaders: Object;
+        encodeHeaders: boolean;
+        authTokenPrefix: string;
+        authToken: string;
+        fieldName: string;
+        _queue: any[];
+        _emitter: EventEmitter<any>;
+        setOptions(options: any): void;
+        uploadFilesInQueue(): void;
+        uploadFile(file: any): void;
+        addFilesToQueue(files: FileList[]): void;
+        removeFileFromQueue(i: number): void;
+        clearQueue(): void;
+        getQueueSize(): number;
+        inQueue(file: any): boolean;
+        isFile(file: any): boolean;
+        log(msg: any): void;
+        generateRandomIndex(): string;
+    }
+}
+declare module "j/ui/uploader/select" {
+    import { ElementRef, EventEmitter } from 'angular2/core';
+    import { JUploader } from "j/ui/uploader/uploader";
+    export class JUpload {
+        el: ElementRef;
+        uploader: JUploader;
+        options: any;
+        onUpload: EventEmitter<any>;
+        constructor(el: ElementRef);
+        onFiles(): void;
+    }
+}
 declare module "j/ui" {
     export * from "j/ui/jui";
     export * from "j/ui/page/page";
+    export * from "j/ui/nav/nav-tree";
+    export * from "j/ui/uploader/uploader";
+    export * from "j/ui/uploader/select";
 }
 declare module "j/utils" {
     export * from "j/utils/dom";
