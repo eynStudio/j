@@ -508,7 +508,7 @@ System.register("j/base/store", ["angular2/core", "j/core/r", "rxjs/Rx", "angula
                         .flatMap(function (path) { return _this.r.post(path, null); })
                         .map(function (o) {
                         _this.m = o;
-                        _this._m = Immutable.fromJS(_this.m).clone().toJS();
+                        _this._m = Immutable.fromJS(o);
                     });
                 };
                 JEditStore.prototype.saveOb = function () {
@@ -517,7 +517,7 @@ System.register("j/base/store", ["angular2/core", "j/core/r", "rxjs/Rx", "angula
                         .flatMap(function (path) { return _this.r.put(path, _this.m); })
                         .map(function (o) {
                         _this.refreshP();
-                        _this._m = Immutable.fromJS(_this.m).clone().toJS();
+                        _this._m = Immutable.fromJS(_this.m);
                         _this.onSaved.emit(_this.id || _this.m.Id);
                     });
                 };
@@ -579,16 +579,16 @@ System.register("j/base/store", ["angular2/core", "j/core/r", "rxjs/Rx", "angula
                     this.m = m;
                 };
                 JSubStore.prototype.show = function (m) {
-                    this._m = m;
-                    this.m = Immutable.fromJS(this.m).clone().toJS();
+                    this._m = Immutable.fromJS(m);
+                    this.m = m;
                 };
                 JSubStore.prototype.save = function () {
                     if (this._m) {
                         this._m = Immutable.fromJS(this._m).extend(this.m);
                     }
                     else {
-                        this._m = Immutable.fromJS(this.m).clone().toJS();
-                        this.pStore.m[this.cfg.path].push(this._m);
+                        this._m = Immutable.fromJS(this.m);
+                        this.pStore.m[this.cfg.path].push(this._m.toJS());
                     }
                 };
                 JSubStore.prototype.del = function () {

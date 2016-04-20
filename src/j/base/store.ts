@@ -185,7 +185,7 @@ export class JEditStore extends JViewStore{
             .flatMap(path=>this.r.post(path, null))
             .map(o=> {
                 this.m = o;
-                this._m = Immutable.fromJS(this.m).clone().toJS();
+                this._m = Immutable.fromJS(o);
             });
     }
 
@@ -194,7 +194,7 @@ export class JEditStore extends JViewStore{
             .flatMap(path=>this.r.put(path, this.m))
             .map(o=> {
                 this.refreshP();
-                this._m =Immutable.fromJS(this.m).clone().toJS();
+                this._m =Immutable.fromJS(this.m);
                 this.onSaved.emit(this.id || this.m.Id );
             });
     }
@@ -253,8 +253,8 @@ export class JSubStore extends Store {
     }
 
     show(m){
-        this._m=m;
-        this.m= Immutable.fromJS(this.m).clone().toJS();
+        this._m=Immutable.fromJS(m);
+        this.m= m;
     }
     save() {
         if (this._m) {
@@ -262,8 +262,8 @@ export class JSubStore extends Store {
             this._m=Immutable.fromJS(this._m).extend(this.m);
         } else {
             // this._m = _.extend({}, this.m);
-            this._m =Immutable.fromJS(this.m).clone().toJS();
-            this.pStore.m[this.cfg.path].push(this._m);
+            this._m =Immutable.fromJS(this.m);
+            this.pStore.m[this.cfg.path].push(this._m.toJS());
         }
     }
 
