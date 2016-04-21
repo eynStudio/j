@@ -1509,6 +1509,13 @@ System.register("j/fw/bld", ["angular2/core", "j/ui/page/page", "angular2/common
                     enumerable: true,
                     configurable: true
                 });
+                Object.defineProperty(JFwBld.prototype, "m", {
+                    get: function () {
+                        return this.cfg.ctx.m;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
                 Object.defineProperty(JFwBld.prototype, "showFooter", {
                     get: function () {
                         return this.cfg.footer || (this.ctx && this.ctx.pager);

@@ -442,6 +442,7 @@ declare module "j/fw/bld" {
         cfg: JBldCfg;
         constructor();
         ctx: any;
+        m: any;
         showFooter: any;
     }
     export class JBldNull {

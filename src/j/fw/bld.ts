@@ -76,6 +76,9 @@ export class JFwBld {
     get ctx() {
         return this.cfg.ctx;
     }
+    get m(){
+        return this.cfg.ctx.m;
+    }
     get showFooter(){
         return this.cfg.footer||(this.ctx&&this.ctx.pager);
     }
