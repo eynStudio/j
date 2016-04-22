@@ -14,23 +14,7 @@ var nav_1 = require('./nav');
 var top_1 = require('./top');
 var auth_1 = require("../base/auth");
 var setting_1 = require("./setting");
-var JFw = (function () {
-    function JFw() {
-    }
-    JFw.prototype.showSetting = function (type, toggle) {
-        if (toggle === void 0) { toggle = true; }
-        this.fw.setting.showSetting(type, toggle);
-    };
-    JFw.prototype.closeSetting = function () {
-        this.fw.setting.closeCurComp();
-    };
-    JFw = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], JFw);
-    return JFw;
-}());
-exports.JFw = JFw;
+var jfw_1 = require("j/fw/jfw");
 var JFwComp = (function () {
     function JFwComp(auth, fw) {
         this.auth = auth;
@@ -47,8 +31,9 @@ var JFwComp = (function () {
             template: "<j-fw-top role=\"navigation\" class=\"navbar navbar-fixed-top navbar-dark bg-primary j-fw-top-sm\"></j-fw-top>\n<j-fw-nav  *ngIf=\"auth.isLogin()\"></j-fw-nav>\n<router-outlet></router-outlet>\n<j-fw-setting></j-fw-setting>",
             directives: [router_1.RouterOutlet, nav_1.JFwNav, top_1.JFwTop, setting_1.JFwSetting],
         }), 
-        __metadata('design:paramtypes', [auth_1.JAuth, JFw])
+        __metadata('design:paramtypes', [auth_1.JAuth, (typeof (_a = typeof jfw_1.JFw !== 'undefined' && jfw_1.JFw) === 'function' && _a) || Object])
     ], JFwComp);
     return JFwComp;
+    var _a;
 }());
 exports.JFwComp = JFwComp;

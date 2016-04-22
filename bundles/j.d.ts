@@ -313,12 +313,27 @@ declare module "j/core" {
     export * from "j/core/res";
     export * from "j/core/filter";
 }
+declare module "j/fw/jfw" {
+    import { Type } from 'angular2/src/facade/lang';
+    import { JFwComp } from "j/fw/fw";
+    export class JFw {
+        fw: JFwComp;
+        appTitle: string;
+        appLogo: string;
+        constructor();
+        showSetting(type: Type, toggle?: boolean): void;
+        closeSetting(): void;
+    }
+}
 declare module "j/fw/top" {
     import { JAuth } from "j/base/auth";
+    import { JFw } from "j/fw/jfw";
     export class JFwTop {
         private auth;
-        constructor(auth: JAuth);
+        private jfw;
+        constructor(auth: JAuth, jfw: JFw);
         logout(): void;
+        title: string;
     }
 }
 declare module "j/fw/nav" {
@@ -457,15 +472,9 @@ declare module "j/fw/bld" {
     }
 }
 declare module "j/fw/fw" {
-    import { Type } from 'angular2/src/facade/lang';
     import { JAuth } from "j/base/auth";
     import { JFwSetting } from "j/fw/setting";
-    export class JFw {
-        fw: JFwComp;
-        constructor();
-        showSetting(type: Type, toggle?: boolean): void;
-        closeSetting(): void;
-    }
+    import { JFw } from "j/fw/jfw";
     export class JFwComp {
         private auth;
         private fw;
@@ -474,6 +483,7 @@ declare module "j/fw/fw" {
     }
 }
 declare module "j/fw" {
+    export * from "j/fw/jfw";
     export * from "j/fw/top";
     export * from "j/fw/nav";
     export * from "j/fw/setting";

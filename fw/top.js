@@ -11,21 +11,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('angular2/core');
 var router_1 = require('angular2/router');
 var auth_1 = require("../base/auth");
+var jfw_1 = require("j/fw/jfw");
 var JFwTop = (function () {
-    function JFwTop(auth) {
+    function JFwTop(auth, jfw) {
         this.auth = auth;
+        this.jfw = jfw;
     }
     JFwTop.prototype.logout = function () {
         this.auth.logout();
     };
+    Object.defineProperty(JFwTop.prototype, "title", {
+        get: function () {
+            return this.jfw.appTitle || 'J-Framework';
+        },
+        enumerable: true,
+        configurable: true
+    });
     JFwTop = __decorate([
         core_1.Component({
             selector: 'j-fw-top',
-            template: "<a class=\"navbar-brand\" [routerLink]=\"['./Home']\">J-Framework</a>\n<div class=\"top-user pull-xs-right\" *ngIf=\"auth.isLogin()\">\n    <span>{{auth.Name}}</span>\n    <button class=\"btn btn-secondary btn-sm\" (click)=\"logout()\"><i class=\"fa fa-sign-out\"></i></button>\n</div>",
+            template: "<a class=\"navbar-brand\" [routerLink]=\"['./Home']\"> {{title}} </a>\n<div class=\"top-user pull-xs-right\" *ngIf=\"auth.isLogin()\">\n    <span>{{auth.Name}}</span>\n    <button class=\"btn btn-secondary btn-sm\" (click)=\"logout()\"><i class=\"fa fa-sign-out\"></i></button>\n</div>",
             directives: [router_1.RouterLink],
         }), 
-        __metadata('design:paramtypes', [auth_1.JAuth])
+        __metadata('design:paramtypes', [auth_1.JAuth, (typeof (_a = typeof jfw_1.JFw !== 'undefined' && jfw_1.JFw) === 'function' && _a) || Object])
     ], JFwTop);
     return JFwTop;
+    var _a;
 }());
 exports.JFwTop = JFwTop;

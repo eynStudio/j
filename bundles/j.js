@@ -1055,53 +1055,96 @@ System.register("j/core", ["j/core/localstorage", "j/core/r", "j/core/res", "j/c
         }
     }
 });
-System.register("j/fw/top", ['angular2/core', 'angular2/router', "j/base/auth"], function(exports_11, context_11) {
+System.register("j/fw/jfw", ['angular2/core'], function(exports_11, context_11) {
     "use strict";
     var __moduleName = context_11 && context_11.id;
-    var core_7, router_3, auth_2;
-    var JFwTop;
+    var core_7;
+    var JFw;
     return {
         setters:[
             function (core_7_1) {
                 core_7 = core_7_1;
+            }],
+        execute: function() {
+            JFw = (function () {
+                function JFw() {
+                }
+                JFw.prototype.showSetting = function (type, toggle) {
+                    if (toggle === void 0) { toggle = true; }
+                    this.fw.setting.showSetting(type, toggle);
+                };
+                JFw.prototype.closeSetting = function () {
+                    this.fw.setting.closeCurComp();
+                };
+                JFw = __decorate([
+                    core_7.Injectable(), 
+                    __metadata('design:paramtypes', [])
+                ], JFw);
+                return JFw;
+            }());
+            exports_11("JFw", JFw);
+        }
+    }
+});
+System.register("j/fw/top", ['angular2/core', 'angular2/router', "j/base/auth", "j/fw/jfw"], function(exports_12, context_12) {
+    "use strict";
+    var __moduleName = context_12 && context_12.id;
+    var core_8, router_3, auth_2, jfw_1;
+    var JFwTop;
+    return {
+        setters:[
+            function (core_8_1) {
+                core_8 = core_8_1;
             },
             function (router_3_1) {
                 router_3 = router_3_1;
             },
             function (auth_2_1) {
                 auth_2 = auth_2_1;
+            },
+            function (jfw_1_1) {
+                jfw_1 = jfw_1_1;
             }],
         execute: function() {
             JFwTop = (function () {
-                function JFwTop(auth) {
+                function JFwTop(auth, jfw) {
                     this.auth = auth;
+                    this.jfw = jfw;
                 }
                 JFwTop.prototype.logout = function () {
                     this.auth.logout();
                 };
+                Object.defineProperty(JFwTop.prototype, "title", {
+                    get: function () {
+                        return this.jfw.appTitle || 'J-Framework';
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
                 JFwTop = __decorate([
-                    core_7.Component({
+                    core_8.Component({
                         selector: 'j-fw-top',
-                        template: "<a class=\"navbar-brand\" [routerLink]=\"['./Home']\">J-Framework</a>\n<div class=\"top-user pull-xs-right\" *ngIf=\"auth.isLogin()\">\n    <span>{{auth.Name}}</span>\n    <button class=\"btn btn-secondary btn-sm\" (click)=\"logout()\"><i class=\"fa fa-sign-out\"></i></button>\n</div>",
+                        template: "<a class=\"navbar-brand\" [routerLink]=\"['./Home']\"> {{title}} </a>\n<div class=\"top-user pull-xs-right\" *ngIf=\"auth.isLogin()\">\n    <span>{{auth.Name}}</span>\n    <button class=\"btn btn-secondary btn-sm\" (click)=\"logout()\"><i class=\"fa fa-sign-out\"></i></button>\n</div>",
                         directives: [router_3.RouterLink],
                     }), 
-                    __metadata('design:paramtypes', [auth_2.JAuth])
+                    __metadata('design:paramtypes', [auth_2.JAuth, (typeof (_a = typeof jfw_1.JFw !== 'undefined' && jfw_1.JFw) === 'function' && _a) || Object])
                 ], JFwTop);
                 return JFwTop;
+                var _a;
             }());
-            exports_11("JFwTop", JFwTop);
+            exports_12("JFwTop", JFwTop);
         }
     }
 });
-System.register("j/fw/nav", ['angular2/core', 'angular2/common', 'angular2/router', "j/base/auth"], function(exports_12, context_12) {
+System.register("j/fw/nav", ['angular2/core', 'angular2/common', 'angular2/router', "j/base/auth"], function(exports_13, context_13) {
     "use strict";
-    var __moduleName = context_12 && context_12.id;
-    var core_8, common_1, router_4, auth_3;
+    var __moduleName = context_13 && context_13.id;
+    var core_9, common_1, router_4, auth_3;
     var JFwNavTree, JFwNav;
     return {
         setters:[
-            function (core_8_1) {
-                core_8 = core_8_1;
+            function (core_9_1) {
+                core_9 = core_9_1;
             },
             function (common_1_1) {
                 common_1 = common_1_1;
@@ -1121,7 +1164,7 @@ System.register("j/fw/nav", ['angular2/core', 'angular2/common', 'angular2/route
                     return this.location.path().startsWith('/' + uri);
                 };
                 JFwNavTree = __decorate([
-                    core_8.Component({
+                    core_9.Component({
                         selector: 'j-fw-nav-tree',
                         inputs: ['nodes:nodes'],
                         template: "<ul class=\"list-group\">\n<li *ngFor=\"#n of nodes\" class=\"list-group-item\">\n    <a *ngIf=\"n.Nodes.length>0\" (click)=\"n.$open=!n.$open\" [ngClass]=\"{active:isActive(n.Uri)}\">\n        <i class=\"fa\" [ngClass]=\"'fa-'+n.M.Icon\"></i>\n        {{n.Mc}}\n    </a>\n    <a *ngIf=\"n.Nodes.length==0\" [href]=\"'#/'+n.Uri.split('.').join('/')\">\n        <i class=\"fa\" [ngClass]=\"'fa-'+n.M.Icon\"></i>\n        {{n.Mc}}\n    </a>\n    <j-fw-nav-tree *ngIf=\"n.Nodes.length>0 && (n.$open||isActive(n.Uri))\" [nodes]=\"n.Nodes\"></j-fw-nav-tree>\n</li>\n</ul>",
@@ -1131,13 +1174,13 @@ System.register("j/fw/nav", ['angular2/core', 'angular2/common', 'angular2/route
                 ], JFwNavTree);
                 return JFwNavTree;
             }());
-            exports_12("JFwNavTree", JFwNavTree);
+            exports_13("JFwNavTree", JFwNavTree);
             JFwNav = (function () {
                 function JFwNav(auth) {
                     this.auth = auth;
                 }
                 JFwNav = __decorate([
-                    core_8.Component({
+                    core_9.Component({
                         selector: 'j-fw-nav',
                         template: "<j-fw-nav-tree  [nodes]=\"auth.navs?.Navs\"></j-fw-nav-tree>",
                         directives: [JFwNavTree],
@@ -1146,19 +1189,19 @@ System.register("j/fw/nav", ['angular2/core', 'angular2/common', 'angular2/route
                 ], JFwNav);
                 return JFwNav;
             }());
-            exports_12("JFwNav", JFwNav);
+            exports_13("JFwNav", JFwNav);
         }
     }
 });
-System.register("j/fw/setting", ['angular2/core'], function(exports_13, context_13) {
+System.register("j/fw/setting", ['angular2/core'], function(exports_14, context_14) {
     "use strict";
-    var __moduleName = context_13 && context_13.id;
-    var core_9;
+    var __moduleName = context_14 && context_14.id;
+    var core_10;
     var JFwSetting;
     return {
         setters:[
-            function (core_9_1) {
-                core_9 = core_9_1;
+            function (core_10_1) {
+                core_10 = core_10_1;
             }],
         execute: function() {
             JFwSetting = (function () {
@@ -1185,28 +1228,28 @@ System.register("j/fw/setting", ['angular2/core'], function(exports_13, context_
                         this.curComp.dispose();
                 };
                 JFwSetting = __decorate([
-                    core_9.Component({
+                    core_10.Component({
                         selector: 'j-fw-setting',
                         template: "<div #child></div>",
                         directives: [],
                     }), 
-                    __metadata('design:paramtypes', [core_9.DynamicComponentLoader, core_9.ElementRef])
+                    __metadata('design:paramtypes', [core_10.DynamicComponentLoader, core_10.ElementRef])
                 ], JFwSetting);
                 return JFwSetting;
             }());
-            exports_13("JFwSetting", JFwSetting);
+            exports_14("JFwSetting", JFwSetting);
         }
     }
 });
-System.register("j/ui/page/page", ['angular2/core', 'angular2/common'], function(exports_14, context_14) {
+System.register("j/ui/page/page", ['angular2/core', 'angular2/common'], function(exports_15, context_15) {
     "use strict";
-    var __moduleName = context_14 && context_14.id;
-    var core_10, common_2;
+    var __moduleName = context_15 && context_15.id;
+    var core_11, common_2;
     var paginationConfig, PAGINATION_TEMPLATE, Pagination, pagerConfig, PAGER_TEMPLATE, Pager, PAGINATION_DIRECTIVES;
     return {
         setters:[
-            function (core_10_1) {
-                core_10 = core_10_1;
+            function (core_11_1) {
+                core_11 = core_11_1;
             },
             function (common_2_1) {
                 common_2 = common_2_1;
@@ -1229,8 +1272,8 @@ System.register("j/ui/page/page", ['angular2/core', 'angular2/common'], function
                     this.cd = cd;
                     this.renderer = renderer;
                     this.elementRef = elementRef;
-                    this.numPages = new core_10.EventEmitter();
-                    this.pageChanged = new core_10.EventEmitter();
+                    this.numPages = new core_11.EventEmitter();
+                    this.pageChanged = new core_11.EventEmitter();
                     this.inited = false;
                     this.onChange = function (_) {
                     };
@@ -1379,69 +1422,69 @@ System.register("j/ui/page/page", ['angular2/core', 'angular2/common'], function
                     this.onTouched = fn;
                 };
                 __decorate([
-                    core_10.Input(), 
+                    core_11.Input(), 
                     __metadata('design:type', Number)
                 ], Pagination.prototype, "maxSize", void 0);
                 __decorate([
-                    core_10.Input(), 
+                    core_11.Input(), 
                     __metadata('design:type', Boolean)
                 ], Pagination.prototype, "boundaryLinks", void 0);
                 __decorate([
-                    core_10.Input(), 
+                    core_11.Input(), 
                     __metadata('design:type', Boolean)
                 ], Pagination.prototype, "directionLinks", void 0);
                 __decorate([
-                    core_10.Input(), 
+                    core_11.Input(), 
                     __metadata('design:type', String)
                 ], Pagination.prototype, "firstText", void 0);
                 __decorate([
-                    core_10.Input(), 
+                    core_11.Input(), 
                     __metadata('design:type', String)
                 ], Pagination.prototype, "previousText", void 0);
                 __decorate([
-                    core_10.Input(), 
+                    core_11.Input(), 
                     __metadata('design:type', String)
                 ], Pagination.prototype, "nextText", void 0);
                 __decorate([
-                    core_10.Input(), 
+                    core_11.Input(), 
                     __metadata('design:type', String)
                 ], Pagination.prototype, "lastText", void 0);
                 __decorate([
-                    core_10.Input(), 
+                    core_11.Input(), 
                     __metadata('design:type', Boolean)
                 ], Pagination.prototype, "rotate", void 0);
                 __decorate([
-                    core_10.Input(), 
+                    core_11.Input(), 
                     __metadata('design:type', Boolean)
                 ], Pagination.prototype, "disabled", void 0);
                 __decorate([
-                    core_10.Output(), 
-                    __metadata('design:type', core_10.EventEmitter)
+                    core_11.Output(), 
+                    __metadata('design:type', core_11.EventEmitter)
                 ], Pagination.prototype, "numPages", void 0);
                 __decorate([
-                    core_10.Output(), 
-                    __metadata('design:type', core_10.EventEmitter)
+                    core_11.Output(), 
+                    __metadata('design:type', core_11.EventEmitter)
                 ], Pagination.prototype, "pageChanged", void 0);
                 __decorate([
-                    core_10.Input(), 
+                    core_11.Input(), 
                     __metadata('design:type', Object)
                 ], Pagination.prototype, "itemsPerPage", null);
                 __decorate([
-                    core_10.Input(), 
+                    core_11.Input(), 
                     __metadata('design:type', Number)
                 ], Pagination.prototype, "totalItems", null);
                 Pagination = __decorate([
-                    core_10.Component({
+                    core_11.Component({
                         selector: 'pagination[ngModel]',
                         template: PAGINATION_TEMPLATE,
                         directives: [common_2.NgFor, common_2.NgIf]
                     }),
-                    __param(0, core_10.Self()), 
-                    __metadata('design:paramtypes', [common_2.NgModel, core_10.Renderer, core_10.ElementRef])
+                    __param(0, core_11.Self()), 
+                    __metadata('design:paramtypes', [common_2.NgModel, core_11.Renderer, core_11.ElementRef])
                 ], Pagination);
                 return Pagination;
             }());
-            exports_14("Pagination", Pagination);
+            exports_15("Pagination", Pagination);
             pagerConfig = {
                 itemsPerPage: 10,
                 previousText: '« Previous',
@@ -1456,7 +1499,7 @@ System.register("j/ui/page/page", ['angular2/core', 'angular2/common'], function
                     this.config = pagerConfig;
                 }
                 Pager = __decorate([
-                    core_10.Component({
+                    core_11.Component({
                         selector: 'pager[ngModel]',
                         properties: [
                             'align',
@@ -1466,25 +1509,25 @@ System.register("j/ui/page/page", ['angular2/core', 'angular2/common'], function
                         template: PAGER_TEMPLATE,
                         directives: [common_2.NgClass]
                     }),
-                    __param(0, core_10.Self()), 
-                    __metadata('design:paramtypes', [common_2.NgModel, core_10.Renderer, core_10.ElementRef])
+                    __param(0, core_11.Self()), 
+                    __metadata('design:paramtypes', [common_2.NgModel, core_11.Renderer, core_11.ElementRef])
                 ], Pager);
                 return Pager;
             }(Pagination));
-            exports_14("Pager", Pager);
-            exports_14("PAGINATION_DIRECTIVES", PAGINATION_DIRECTIVES = [Pagination, Pager]);
+            exports_15("Pager", Pager);
+            exports_15("PAGINATION_DIRECTIVES", PAGINATION_DIRECTIVES = [Pagination, Pager]);
         }
     }
 });
-System.register("j/fw/bld", ["angular2/core", "j/ui/page/page", "angular2/common"], function(exports_15, context_15) {
+System.register("j/fw/bld", ["angular2/core", "j/ui/page/page", "angular2/common"], function(exports_16, context_16) {
     "use strict";
-    var __moduleName = context_15 && context_15.id;
-    var core_11, page_1, common_3;
+    var __moduleName = context_16 && context_16.id;
+    var core_12, page_1, common_3;
     var defaultCmds, JFwBld, JBldNull, JBldBase;
     return {
         setters:[
-            function (core_11_1) {
-                core_11 = core_11_1;
+            function (core_12_1) {
+                core_12 = core_12_1;
             },
             function (page_1_1) {
                 page_1 = page_1_1;
@@ -1524,11 +1567,11 @@ System.register("j/fw/bld", ["angular2/core", "j/ui/page/page", "angular2/common
                     configurable: true
                 });
                 __decorate([
-                    core_11.Input('cfg'), 
+                    core_12.Input('cfg'), 
                     __metadata('design:type', Object)
                 ], JFwBld.prototype, "cfg", void 0);
                 JFwBld = __decorate([
-                    core_11.Component({
+                    core_12.Component({
                         selector: 'j-fw-bld',
                         directives: [common_3.NgFor, common_3.NgIf, page_1.PAGINATION_DIRECTIVES],
                         template: "<div class=\"card-header\">\n    <i class=\"fa\" [ngClass]=\"cfg.icon||'fa-list-alt'\"></i>  {{cfg.title}}<code *ngIf=\"cfg.type=='page'\">{{ctx.total}}</code>\n</div>\n<div class=\"card-block j-bld-toolbar\">\n    <div class=\"btn-group btn-group-sm\" role=\"group\">\n        <button type=\"button\" class=\"btn \" [ngClass]=\"b.clazz||'btn-secondary'\" *ngFor=\"#b of cfg.tools\" (click)=\"b.exec && b.exec()\"><i class=\"fa\" [ngClass]=\"b.icon||'fa-tasks'\"></i> {{b.title}}</button>\n    </div>\n    <div class=\"btn-group btn-group-sm pull-right j-bld-opts\" role=\"group\">\n        <button type=\"button\" class=\"btn btn-link\"  *ngIf=\"cfg.search\" (click)=\"showSearch=!showSearch\"><i class=\"fa fa-search\"></i></button>\n        <button type=\"button\" class=\"btn btn-link\"  *ngIf=\"cfg.filter\" (click)=\"cfg.filter.exec()\"><i class=\"fa fa-filter\"></i></button>\n        <button type=\"button\" class=\"btn btn-link\" *ngFor=\"#b of cfg.opts\" (click)=\"b.exec && b.exec()\"><i class=\"fa\" [ngClass]=\"b.icon||'fa-tasks'\"></i> {{b.title}}</button>\n    </div>\n</div>\n<div class=\"j-bld-search\" *ngIf=\"showSearch\">\n    <div class=\"input-group input-group-sm\">\n        <input type=\"text\" class=\"form-control\" [attr.placeholder]=\"cfg.search.msg\" [(ngModel)]=\"cfg.ctx.filter.ext.search\">\n        <span class=\"input-group-addon\" (click)=\"cfg.ctx.refresh()\">\u67E5\u627E</span>\n    </div>\n</div>\n<div class=\"j-bld-body\" [ngClass]=\"{'j-wi-search':showSearch,'j-wi-footer':showFooter}\">\n<ng-content></ng-content>\n</div>\n<div class=\"card-footer\" *ngIf=\"showFooter\">\n    <pagination *ngIf=\"cfg.ctx?.pager\" class=\"pagination-sm pull-sm-right\" [boundaryLinks]=\"true\" [totalItems]=\"cfg.ctx.total\" [maxSize]=\"6\"\n                [itemsPerPage]=\"cfg.ctx.filter.ext.perPage\" [(ngModel)]=\"cfg.ctx.filter.ext.page\" (pageChanged)=\"cfg.ctx.pager($event)\"></pagination>\n</div>"
@@ -1537,12 +1580,12 @@ System.register("j/fw/bld", ["angular2/core", "j/ui/page/page", "angular2/common
                 ], JFwBld);
                 return JFwBld;
             }());
-            exports_15("JFwBld", JFwBld);
+            exports_16("JFwBld", JFwBld);
             JBldNull = (function () {
                 function JBldNull() {
                 }
                 JBldNull = __decorate([
-                    core_11.Component({
+                    core_12.Component({
                         selector: 'j-bld-null',
                         directives: [page_1.PAGINATION_DIRECTIVES],
                         template: '<router-outlet></router-outlet>',
@@ -1551,7 +1594,7 @@ System.register("j/fw/bld", ["angular2/core", "j/ui/page/page", "angular2/common
                 ], JBldNull);
                 return JBldNull;
             }());
-            exports_15("JBldNull", JBldNull);
+            exports_16("JBldNull", JBldNull);
             JBldBase = (function () {
                 function JBldBase(cfg) {
                     this.cfg = cfg;
@@ -1580,24 +1623,24 @@ System.register("j/fw/bld", ["angular2/core", "j/ui/page/page", "angular2/common
                     }
                 };
                 __decorate([
-                    core_11.ViewChild(JFwBld), 
+                    core_12.ViewChild(JFwBld), 
                     __metadata('design:type', JFwBld)
                 ], JBldBase.prototype, "bld", void 0);
                 return JBldBase;
             }());
-            exports_15("JBldBase", JBldBase);
+            exports_16("JBldBase", JBldBase);
         }
     }
 });
-System.register("j/fw/fw", ['angular2/core', 'angular2/router', "j/fw/nav", "j/fw/top", "j/base/auth", "j/fw/setting"], function(exports_16, context_16) {
+System.register("j/fw/fw", ['angular2/core', 'angular2/router', "j/fw/nav", "j/fw/top", "j/base/auth", "j/fw/setting", "j/fw/jfw"], function(exports_17, context_17) {
     "use strict";
-    var __moduleName = context_16 && context_16.id;
-    var core_12, router_5, nav_1, top_1, auth_4, setting_1;
-    var JFw, JFwComp;
+    var __moduleName = context_17 && context_17.id;
+    var core_13, router_5, nav_1, top_1, auth_4, setting_1, jfw_2;
+    var JFwComp;
     return {
         setters:[
-            function (core_12_1) {
-                core_12 = core_12_1;
+            function (core_13_1) {
+                core_13 = core_13_1;
             },
             function (router_5_1) {
                 router_5 = router_5_1;
@@ -1613,25 +1656,11 @@ System.register("j/fw/fw", ['angular2/core', 'angular2/router', "j/fw/nav", "j/f
             },
             function (setting_1_1) {
                 setting_1 = setting_1_1;
+            },
+            function (jfw_2_1) {
+                jfw_2 = jfw_2_1;
             }],
         execute: function() {
-            JFw = (function () {
-                function JFw() {
-                }
-                JFw.prototype.showSetting = function (type, toggle) {
-                    if (toggle === void 0) { toggle = true; }
-                    this.fw.setting.showSetting(type, toggle);
-                };
-                JFw.prototype.closeSetting = function () {
-                    this.fw.setting.closeCurComp();
-                };
-                JFw = __decorate([
-                    core_12.Injectable(), 
-                    __metadata('design:paramtypes', [])
-                ], JFw);
-                return JFw;
-            }());
-            exports_16("JFw", JFw);
             JFwComp = (function () {
                 function JFwComp(auth, fw) {
                     this.auth = auth;
@@ -1639,35 +1668,39 @@ System.register("j/fw/fw", ['angular2/core', 'angular2/router', "j/fw/nav", "j/f
                     fw.fw = this;
                 }
                 __decorate([
-                    core_12.ViewChild(setting_1.JFwSetting), 
+                    core_13.ViewChild(setting_1.JFwSetting), 
                     __metadata('design:type', setting_1.JFwSetting)
                 ], JFwComp.prototype, "setting", void 0);
                 JFwComp = __decorate([
-                    core_12.Component({
+                    core_13.Component({
                         selector: 'j-fw',
                         template: "<j-fw-top role=\"navigation\" class=\"navbar navbar-fixed-top navbar-dark bg-primary j-fw-top-sm\"></j-fw-top>\n<j-fw-nav  *ngIf=\"auth.isLogin()\"></j-fw-nav>\n<router-outlet></router-outlet>\n<j-fw-setting></j-fw-setting>",
                         directives: [router_5.RouterOutlet, nav_1.JFwNav, top_1.JFwTop, setting_1.JFwSetting],
                     }), 
-                    __metadata('design:paramtypes', [auth_4.JAuth, JFw])
+                    __metadata('design:paramtypes', [auth_4.JAuth, (typeof (_a = typeof jfw_2.JFw !== 'undefined' && jfw_2.JFw) === 'function' && _a) || Object])
                 ], JFwComp);
                 return JFwComp;
+                var _a;
             }());
-            exports_16("JFwComp", JFwComp);
+            exports_17("JFwComp", JFwComp);
         }
     }
 });
-System.register("j/fw", ["j/fw/top", "j/fw/nav", "j/fw/setting", "j/fw/bld", "j/fw/fw"], function(exports_17, context_17) {
+System.register("j/fw", ["j/fw/jfw", "j/fw/top", "j/fw/nav", "j/fw/setting", "j/fw/bld", "j/fw/fw"], function(exports_18, context_18) {
     "use strict";
-    var __moduleName = context_17 && context_17.id;
+    var __moduleName = context_18 && context_18.id;
     function exportStar_3(m) {
         var exports = {};
         for(var n in m) {
             if (n !== "default") exports[n] = m[n];
         }
-        exports_17(exports);
+        exports_18(exports);
     }
     return {
         setters:[
+            function (jfw_3_1) {
+                exportStar_3(jfw_3_1);
+            },
             function (top_2_1) {
                 exportStar_3(top_2_1);
             },
@@ -1687,15 +1720,15 @@ System.register("j/fw", ["j/fw/top", "j/fw/nav", "j/fw/setting", "j/fw/bld", "j/
         }
     }
 });
-System.register("j/pipe/filter", ['angular2/core'], function(exports_18, context_18) {
+System.register("j/pipe/filter", ['angular2/core'], function(exports_19, context_19) {
     "use strict";
-    var __moduleName = context_18 && context_18.id;
-    var core_13;
+    var __moduleName = context_19 && context_19.id;
+    var core_14;
     var JFilterPipe;
     return {
         setters:[
-            function (core_13_1) {
-                core_13 = core_13_1;
+            function (core_14_1) {
+                core_14 = core_14_1;
             }],
         execute: function() {
             JFilterPipe = (function () {
@@ -1714,24 +1747,24 @@ System.register("j/pipe/filter", ['angular2/core'], function(exports_18, context
                     }
                 };
                 JFilterPipe = __decorate([
-                    core_13.Pipe({ name: 'jFilter' }), 
+                    core_14.Pipe({ name: 'jFilter' }), 
                     __metadata('design:paramtypes', [])
                 ], JFilterPipe);
                 return JFilterPipe;
             }());
-            exports_18("JFilterPipe", JFilterPipe);
+            exports_19("JFilterPipe", JFilterPipe);
         }
     }
 });
-System.register("j/pipe", ["j/pipe/filter"], function(exports_19, context_19) {
+System.register("j/pipe", ["j/pipe/filter"], function(exports_20, context_20) {
     "use strict";
-    var __moduleName = context_19 && context_19.id;
+    var __moduleName = context_20 && context_20.id;
     function exportStar_4(m) {
         var exports = {};
         for(var n in m) {
             if (n !== "default") exports[n] = m[n];
         }
-        exports_19(exports);
+        exports_20(exports);
     }
     return {
         setters:[
@@ -1742,9 +1775,9 @@ System.register("j/pipe", ["j/pipe/filter"], function(exports_19, context_19) {
         }
     }
 });
-System.register("j/utils/dom", [], function(exports_20, context_20) {
+System.register("j/utils/dom", [], function(exports_21, context_21) {
     "use strict";
-    var __moduleName = context_20 && context_20.id;
+    var __moduleName = context_21 && context_21.id;
     var dimensionCache;
     function getDimensions(ele, id) {
         var dimensions = dimensionCache[id];
@@ -1763,15 +1796,15 @@ System.register("j/utils/dom", [], function(exports_20, context_20) {
         }
         return dimensions;
     }
-    exports_20("getDimensions", getDimensions);
+    exports_21("getDimensions", getDimensions);
     function flushDimensionCache() {
         dimensionCache = {};
     }
-    exports_20("flushDimensionCache", flushDimensionCache);
+    exports_21("flushDimensionCache", flushDimensionCache);
     function clearDimensions(id) {
         delete dimensionCache[id];
     }
-    exports_20("clearDimensions", clearDimensions);
+    exports_21("clearDimensions", clearDimensions);
     return {
         setters:[],
         execute: function() {
@@ -1779,9 +1812,9 @@ System.register("j/utils/dom", [], function(exports_20, context_20) {
         }
     }
 });
-System.register("j/ui/jui", ["j/utils/dom"], function(exports_21, context_21) {
+System.register("j/ui/jui", ["j/utils/dom"], function(exports_22, context_22) {
     "use strict";
-    var __moduleName = context_21 && context_21.id;
+    var __moduleName = context_22 && context_22.id;
     var dom;
     var _uid, Jui;
     return {
@@ -1816,19 +1849,19 @@ System.register("j/ui/jui", ["j/utils/dom"], function(exports_21, context_21) {
                 };
                 return Jui;
             }());
-            exports_21("Jui", Jui);
+            exports_22("Jui", Jui);
         }
     }
 });
-System.register("j/ui/nav/nav-tree", ['angular2/core', 'angular2/router'], function(exports_22, context_22) {
+System.register("j/ui/nav/nav-tree", ['angular2/core', 'angular2/router'], function(exports_23, context_23) {
     "use strict";
-    var __moduleName = context_22 && context_22.id;
-    var core_14, router_6;
+    var __moduleName = context_23 && context_23.id;
+    var core_15, router_6;
     var NavTree;
     return {
         setters:[
-            function (core_14_1) {
-                core_14 = core_14_1;
+            function (core_15_1) {
+                core_15 = core_15_1;
             },
             function (router_6_1) {
                 router_6 = router_6_1;
@@ -1838,7 +1871,7 @@ System.register("j/ui/nav/nav-tree", ['angular2/core', 'angular2/router'], funct
                 function NavTree() {
                 }
                 NavTree = __decorate([
-                    core_14.Component({
+                    core_15.Component({
                         selector: 'nav-tree',
                         directives: [router_6.ROUTER_DIRECTIVES, NavTree],
                         inputs: ['nodes:nodes'],
@@ -1848,19 +1881,19 @@ System.register("j/ui/nav/nav-tree", ['angular2/core', 'angular2/router'], funct
                 ], NavTree);
                 return NavTree;
             }());
-            exports_22("NavTree", NavTree);
+            exports_23("NavTree", NavTree);
         }
     }
 });
-System.register("j/ui/uploader/uploader", ['angular2/core'], function(exports_23, context_23) {
+System.register("j/ui/uploader/uploader", ['angular2/core'], function(exports_24, context_24) {
     "use strict";
-    var __moduleName = context_23 && context_23.id;
-    var core_15;
+    var __moduleName = context_24 && context_24.id;
+    var core_16;
     var Ufile, JUploader;
     return {
         setters:[
-            function (core_15_1) {
-                core_15 = core_15_1;
+            function (core_16_1) {
+                core_16 = core_16_1;
             }],
         execute: function() {
             Ufile = (function () {
@@ -1916,7 +1949,7 @@ System.register("j/ui/uploader/uploader", ['angular2/core'], function(exports_23
                     this.authToken = undefined;
                     this.fieldName = "file";
                     this._queue = [];
-                    this._emitter = new core_15.EventEmitter(true);
+                    this._emitter = new core_16.EventEmitter(true);
                 }
                 JUploader.prototype.setOptions = function (options) {
                     this.url = options.url != null ? options.url : this.url;
@@ -2031,24 +2064,24 @@ System.register("j/ui/uploader/uploader", ['angular2/core'], function(exports_23
                     return Math.random().toString(36).substring(7);
                 };
                 JUploader = __decorate([
-                    core_15.Injectable(), 
+                    core_16.Injectable(), 
                     __metadata('design:paramtypes', [])
                 ], JUploader);
                 return JUploader;
             }());
-            exports_23("JUploader", JUploader);
+            exports_24("JUploader", JUploader);
         }
     }
 });
-System.register("j/ui/uploader/select", ['angular2/core', "j/ui/uploader/uploader"], function(exports_24, context_24) {
+System.register("j/ui/uploader/select", ['angular2/core', "j/ui/uploader/uploader"], function(exports_25, context_25) {
     "use strict";
-    var __moduleName = context_24 && context_24.id;
-    var core_16, uploader_1;
+    var __moduleName = context_25 && context_25.id;
+    var core_17, uploader_1;
     var JUpload;
     return {
         setters:[
-            function (core_16_1) {
-                core_16 = core_16_1;
+            function (core_17_1) {
+                core_17 = core_17_1;
             },
             function (uploader_1_1) {
                 uploader_1 = uploader_1_1;
@@ -2058,7 +2091,7 @@ System.register("j/ui/uploader/select", ['angular2/core', "j/ui/uploader/uploade
                 function JUpload(el) {
                     var _this = this;
                     this.el = el;
-                    this.onUpload = new core_16.EventEmitter();
+                    this.onUpload = new core_17.EventEmitter();
                     this.uploader = new uploader_1.JUploader();
                     setTimeout(function () {
                         _this.uploader.setOptions(_this.options);
@@ -2074,29 +2107,29 @@ System.register("j/ui/uploader/select", ['angular2/core', "j/ui/uploader/uploade
                     }
                 };
                 JUpload = __decorate([
-                    core_16.Directive({
+                    core_17.Directive({
                         selector: '[j-upload]',
                         inputs: ['options: j-upload'],
                         outputs: ['onUpload'],
                         host: { '(change)': 'onFiles()' }
                     }), 
-                    __metadata('design:paramtypes', [core_16.ElementRef])
+                    __metadata('design:paramtypes', [core_17.ElementRef])
                 ], JUpload);
                 return JUpload;
             }());
-            exports_24("JUpload", JUpload);
+            exports_25("JUpload", JUpload);
         }
     }
 });
-System.register("j/ui", ["j/ui/jui", "j/ui/page/page", "j/ui/nav/nav-tree", "j/ui/uploader/uploader", "j/ui/uploader/select"], function(exports_25, context_25) {
+System.register("j/ui", ["j/ui/jui", "j/ui/page/page", "j/ui/nav/nav-tree", "j/ui/uploader/uploader", "j/ui/uploader/select"], function(exports_26, context_26) {
     "use strict";
-    var __moduleName = context_25 && context_25.id;
+    var __moduleName = context_26 && context_26.id;
     function exportStar_5(m) {
         var exports = {};
         for(var n in m) {
             if (n !== "default") exports[n] = m[n];
         }
-        exports_25(exports);
+        exports_26(exports);
     }
     return {
         setters:[
@@ -2119,15 +2152,15 @@ System.register("j/ui", ["j/ui/jui", "j/ui/page/page", "j/ui/nav/nav-tree", "j/u
         }
     }
 });
-System.register("j/utils", ["j/utils/dom"], function(exports_26, context_26) {
+System.register("j/utils", ["j/utils/dom"], function(exports_27, context_27) {
     "use strict";
-    var __moduleName = context_26 && context_26.id;
+    var __moduleName = context_27 && context_27.id;
     function exportStar_6(m) {
         var exports = {};
         for(var n in m) {
             if (n !== "default") exports[n] = m[n];
         }
-        exports_26(exports);
+        exports_27(exports);
     }
     return {
         setters:[
@@ -2138,23 +2171,23 @@ System.register("j/utils", ["j/utils/dom"], function(exports_26, context_26) {
         }
     }
 });
-System.register("j", ["j/base", "j/core", "j/fw", "j/pipe", "j/ui", "j/utils"], function(exports_27, context_27) {
+System.register("j", ["j/base", "j/core", "j/fw", "j/pipe", "j/ui", "j/utils"], function(exports_28, context_28) {
     "use strict";
-    var __moduleName = context_27 && context_27.id;
+    var __moduleName = context_28 && context_28.id;
     function exportStar_7(m) {
         var exports = {};
         for(var n in m) {
             if (n !== "default") exports[n] = m[n];
         }
-        exports_27(exports);
+        exports_28(exports);
     }
     return {
         setters:[
             function (base_1_1) {
                 exportStar_7(base_1_1);
             },
-            function (core_17_1) {
-                exportStar_7(core_17_1);
+            function (core_18_1) {
+                exportStar_7(core_18_1);
             },
             function (fw_2_1) {
                 exportStar_7(fw_2_1);

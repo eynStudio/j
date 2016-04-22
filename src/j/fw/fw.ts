@@ -1,26 +1,10 @@
-import {Component, Injectable, ViewChild} from 'angular2/core';
-import {Type} from 'angular2/src/facade/lang';
+import {Component, ViewChild} from 'angular2/core';
 import {  RouterOutlet } from 'angular2/router';
 import { JFwNav } from './nav';
 import { JFwTop } from './top';
 import {JAuth} from "../base/auth";
 import {JFwSetting} from "./setting";
-
-@Injectable()
-export class JFw {
-    fw:JFwComp;
-
-    constructor() {
-    }
-
-    showSetting(type:Type,toggle:boolean=true){
-        this.fw.setting.showSetting(type,toggle);
-    }
-
-    closeSetting(){
-        this.fw.setting.closeCurComp();
-    }
-}
+import {JFw} from "j/fw/jfw";
 
 @Component({
     selector: 'j-fw',
