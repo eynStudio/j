@@ -96,6 +96,7 @@ declare module "j/base/store" {
         getMid(): Observable<string>;
         filter?: any;
         pager?: (number) => void;
+        show?: (any) => void;
         m: any;
         _m: any;
         c: any[];

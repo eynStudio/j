@@ -13,6 +13,7 @@ export interface IStore{
 
     filter?:any;
     pager?:(number)=>void;
+    show?:(any)=>void;
     m:any;
     _m:any;
     c:any[];
