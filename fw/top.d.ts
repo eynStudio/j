@@ -1,5 +1,5 @@
 import { JAuth } from "../base/auth";
-import { JFw } from "j/fw/jfw";
+import { JFw } from "./jfw";
 export declare class JFwTop {
     private auth;
     private jfw;

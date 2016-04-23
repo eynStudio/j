@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import { RouterLink } from 'angular2/router';
 import {JAuth} from "../base/auth";
-import {JFw} from "j/fw/jfw";
+import {JFw} from "./jfw";
 
 @Component({
     selector: 'j-fw-top',

@@ -8,6 +8,7 @@ export interface IStore {
     getPath(): Observable<string>;
     getMid(): Observable<string>;
     filter?: any;
+    pager?: (number) => void;
     m: any;
     _m: any;
     c: any[];
@@ -17,6 +18,9 @@ export interface IStore {
     NewEditStore(cfg: IStoreCfg): any;
     NewWfStore(cfg: IStoreCfg): any;
     NewSubStore(cfg: IStoreCfg): any;
+    onDeleted?: EventEmitter<any>;
+    onSaved?: EventEmitter<any>;
+    onRefreshed?: EventEmitter<any>;
 }
 export interface IStoreCfg {
     path: string;

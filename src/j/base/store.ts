@@ -12,6 +12,7 @@ export interface IStore{
     getMid():Observable<string>;
 
     filter?:any;
+    pager?:(number)=>void;
     m:any;
     _m:any;
     c:any[];
@@ -21,6 +22,10 @@ export interface IStore{
     NewEditStore(cfg:IStoreCfg);
     NewWfStore(cfg:IStoreCfg);
     NewSubStore(cfg:IStoreCfg);
+
+    onDeleted?:EventEmitter<any>;
+    onSaved?:EventEmitter<any>;
+    onRefreshed?:EventEmitter<any>;
 }
 
 export interface IStoreCfg{

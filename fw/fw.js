@@ -14,7 +14,7 @@ var nav_1 = require('./nav');
 var top_1 = require('./top');
 var auth_1 = require("../base/auth");
 var setting_1 = require("./setting");
-var jfw_1 = require("j/fw/jfw");
+var jfw_1 = require("./jfw");
 var JFwComp = (function () {
     function JFwComp(auth, fw) {
         this.auth = auth;
@@ -31,9 +31,8 @@ var JFwComp = (function () {
             template: "<j-fw-top role=\"navigation\" class=\"navbar navbar-fixed-top navbar-dark bg-primary j-fw-top-sm\"></j-fw-top>\n<j-fw-nav  *ngIf=\"auth.isLogin()\"></j-fw-nav>\n<router-outlet></router-outlet>\n<j-fw-setting></j-fw-setting>",
             directives: [router_1.RouterOutlet, nav_1.JFwNav, top_1.JFwTop, setting_1.JFwSetting],
         }), 
-        __metadata('design:paramtypes', [auth_1.JAuth, (typeof (_a = typeof jfw_1.JFw !== 'undefined' && jfw_1.JFw) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [auth_1.JAuth, jfw_1.JFw])
     ], JFwComp);
     return JFwComp;
-    var _a;
 }());
 exports.JFwComp = JFwComp;

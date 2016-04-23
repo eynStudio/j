@@ -87,6 +87,9 @@ var JBldBase = (function () {
         this.cfg.tools && this.cfg.tools.forEach(function (x) { return _this.initCmd(x); });
         this.cfg.opts && this.cfg.opts.forEach(function (x) { return _this.initCmd(x); });
         this.cfg.ctrls && this.cfg.ctrls.forEach(function (x) { return _this.initCmd(x); });
+        if (this.cfg.saved && this.ctx) {
+            this.ctx.onSaved.subscribe(function (id) { return _this.cfg.saved.router.parent.navigate([_this.cfg.saved.route2 || './Edit', { id: id }]); });
+        }
     };
     JBldBase.prototype.initCmd = function (x) {
         var _this = this;

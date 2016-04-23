@@ -4,7 +4,7 @@ import { JFwNav } from './nav';
 import { JFwTop } from './top';
 import {JAuth} from "../base/auth";
 import {JFwSetting} from "./setting";
-import {JFw} from "j/fw/jfw";
+import {JFw} from "./jfw";
 
 @Component({
     selector: 'j-fw',

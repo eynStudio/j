@@ -95,6 +95,7 @@ declare module "j/base/store" {
         getPath(): Observable<string>;
         getMid(): Observable<string>;
         filter?: any;
+        pager?: (number) => void;
         m: any;
         _m: any;
         c: any[];
@@ -104,6 +105,9 @@ declare module "j/base/store" {
         NewEditStore(cfg: IStoreCfg): any;
         NewWfStore(cfg: IStoreCfg): any;
         NewSubStore(cfg: IStoreCfg): any;
+        onDeleted?: EventEmitter<any>;
+        onSaved?: EventEmitter<any>;
+        onRefreshed?: EventEmitter<any>;
     }
     export interface IStoreCfg {
         path: string;
@@ -313,29 +317,6 @@ declare module "j/core" {
     export * from "j/core/res";
     export * from "j/core/filter";
 }
-declare module "j/fw/jfw" {
-    import { Type } from 'angular2/src/facade/lang';
-    import { JFwComp } from "j/fw/fw";
-    export class JFw {
-        fw: JFwComp;
-        appTitle: string;
-        appLogo: string;
-        constructor();
-        showSetting(type: Type, toggle?: boolean): void;
-        closeSetting(): void;
-    }
-}
-declare module "j/fw/top" {
-    import { JAuth } from "j/base/auth";
-    import { JFw } from "j/fw/jfw";
-    export class JFwTop {
-        private auth;
-        private jfw;
-        constructor(auth: JAuth, jfw: JFw);
-        logout(): void;
-        title: string;
-    }
-}
 declare module "j/fw/nav" {
     import { Location } from 'angular2/router';
     import { JAuth } from "j/base/auth";
@@ -349,6 +330,17 @@ declare module "j/fw/nav" {
         constructor(auth: JAuth);
     }
 }
+declare module "j/fw/top" {
+    import { JAuth } from "j/base/auth";
+    import { JFw } from "j/fw/jfw";
+    export class JFwTop {
+        private auth;
+        private jfw;
+        constructor(auth: JAuth, jfw: JFw);
+        logout(): void;
+        title: string;
+    }
+}
 declare module "j/fw/setting" {
     import { ElementRef, DynamicComponentLoader, ComponentRef } from 'angular2/core';
     import { Type } from 'angular2/src/facade/lang';
@@ -360,6 +352,29 @@ declare module "j/fw/setting" {
         constructor(dcl: DynamicComponentLoader, elemRef: ElementRef);
         showSetting(type: Type, toggle?: boolean): void;
         closeCurComp(): void;
+    }
+}
+declare module "j/fw/fw" {
+    import { JAuth } from "j/base/auth";
+    import { JFwSetting } from "j/fw/setting";
+    import { JFw } from "j/fw/jfw";
+    export class JFwComp {
+        private auth;
+        private fw;
+        setting: JFwSetting;
+        constructor(auth: JAuth, fw: JFw);
+    }
+}
+declare module "j/fw/jfw" {
+    import { Type } from 'angular2/src/facade/lang';
+    import { JFwComp } from "j/fw/fw";
+    export class JFw {
+        fw: JFwComp;
+        appTitle: string;
+        appLogo: string;
+        constructor();
+        showSetting(type: Type, toggle?: boolean): void;
+        closeSetting(): void;
     }
 }
 declare module "j/ui/page/page" {
@@ -434,11 +449,17 @@ declare module "j/ui/page/page" {
 }
 declare module "j/fw/bld" {
     import { JCmdCfg } from "j/base/cfg";
+    import { Router } from "angular2/router";
+    import { IStore } from "j/base/store";
     export interface JSearchCfg {
         msg?: string;
     }
     export interface JFilterCfg {
         exec: () => any;
+    }
+    export interface JSavedCfg {
+        router?: Router;
+        route2?: string;
     }
     export interface JBldCfg {
         title: string;
@@ -448,7 +469,8 @@ declare module "j/fw/bld" {
         opts?: JCmdCfg[];
         search?: JSearchCfg;
         filter?: JFilterCfg;
-        ctx?: any;
+        saved?: JSavedCfg;
+        ctx?: IStore;
         footer?: boolean;
         width?: number;
         type?: string;
@@ -456,9 +478,9 @@ declare module "j/fw/bld" {
     export class JFwBld {
         cfg: JBldCfg;
         constructor();
-        ctx: any;
+        ctx: IStore;
         m: any;
-        showFooter: any;
+        showFooter: boolean | ((number: any) => void);
     }
     export class JBldNull {
     }
@@ -466,20 +488,9 @@ declare module "j/fw/bld" {
         cfg: JBldCfg;
         bld: JFwBld;
         constructor(cfg: JBldCfg);
-        ctx: any;
+        ctx: IStore;
         private init();
         private initCmd(x);
-    }
-}
-declare module "j/fw/fw" {
-    import { JAuth } from "j/base/auth";
-    import { JFwSetting } from "j/fw/setting";
-    import { JFw } from "j/fw/jfw";
-    export class JFwComp {
-        private auth;
-        private fw;
-        setting: JFwSetting;
-        constructor(auth: JAuth, fw: JFw);
     }
 }
 declare module "j/fw" {

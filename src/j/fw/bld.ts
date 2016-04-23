@@ -2,6 +2,8 @@ import {Component, Input, ViewChild} from "angular2/core";
 import {PAGINATION_DIRECTIVES} from "../ui/page/page";
 import {NgIf, NgFor} from "angular2/common";
 import {JCmdCfg} from "../base/cfg";
+import {Router} from "angular2/router";
+import {IStore} from "../base/store";
 
 let defaultCmds = {
     'refresh': ['刷新', 'fa-refresh'],
@@ -25,6 +27,10 @@ export interface JSearchCfg{
 export interface JFilterCfg{
     exec:()=>any;
 }
+export interface JSavedCfg{
+    router?:Router;
+    route2?:string;
+}
 export interface JBldCfg{
     title:string;
     icon?:string;
@@ -33,7 +39,8 @@ export interface JBldCfg{
     opts?:JCmdCfg[];
     search?:JSearchCfg;
     filter?:JFilterCfg;
-    ctx?:any;
+    saved?:JSavedCfg;
+    ctx?:IStore;
     footer?:boolean;
     width?:number;
     type?:string; //list,page,
@@ -70,17 +77,21 @@ export interface JBldCfg{
 </div>`
 })
 export class JFwBld {
-    @Input('cfg') cfg: JBldCfg;
+    @Input('cfg') cfg:JBldCfg;
+
     constructor() {
     }
+
     get ctx() {
         return this.cfg.ctx;
     }
-    get m(){
+
+    get m() {
         return this.cfg.ctx.m;
     }
-    get showFooter(){
-        return this.cfg.footer||(this.ctx&&this.ctx.pager);
+
+    get showFooter() {
+        return this.cfg.footer || (this.ctx && this.ctx.pager);
     }
 }
 
@@ -98,22 +109,27 @@ export class JBldBase {
         this.init();
     }
 
-
     get ctx() {
         return this.cfg.ctx;
     }
 
-    private init(){
-        this.cfg.tools&&this.cfg.tools.forEach(x=>this.initCmd(x));
-        this.cfg.opts&&this.cfg.opts.forEach(x=>this.initCmd(x));
-        this.cfg.ctrls&&this.cfg.ctrls.forEach(x=>this.initCmd(x));
-    }
-    private initCmd(x :JCmdCfg){
-        if (x.type&&defaultCmds[x.type]) {
-            x.title=x.title||defaultCmds[x.type][0];
-            x.icon=x.icon||defaultCmds[x.type][1];
-            if(!x.exec)
-                x.exec= ()=>this.ctx&&this.ctx[x.type]();
+    private init() {
+        this.cfg.tools && this.cfg.tools.forEach(x=>this.initCmd(x));
+        this.cfg.opts && this.cfg.opts.forEach(x=>this.initCmd(x));
+        this.cfg.ctrls && this.cfg.ctrls.forEach(x=>this.initCmd(x));
+
+        if (this.cfg.saved && this.ctx) {
+            this.ctx.onSaved.subscribe(id=>this.cfg.saved.router.parent.navigate([this.cfg.saved.route2 || './Edit', {id: id}]));
         }
     }
+
+    private initCmd(x:JCmdCfg) {
+        if (x.type && defaultCmds[x.type]) {
+            x.title = x.title || defaultCmds[x.type][0];
+            x.icon = x.icon || defaultCmds[x.type][1];
+            if (!x.exec)
+                x.exec = ()=>this.ctx && this.ctx[x.type]();
+        }
+    }
+
 }

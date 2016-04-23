@@ -1,6 +1,6 @@
 import {Injectable} from 'angular2/core';
 import {Type} from 'angular2/src/facade/lang';
-import {JFwComp} from "j/fw/fw";
+import {JFwComp} from "./fw";
 
 @Injectable()
 export class JFw {

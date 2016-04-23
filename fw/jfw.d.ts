@@ -1,5 +1,5 @@
 import { Type } from 'angular2/src/facade/lang';
-import { JFwComp } from "j/fw/fw";
+import { JFwComp } from "./fw";
 export declare class JFw {
     fw: JFwComp;
     appTitle: string;
