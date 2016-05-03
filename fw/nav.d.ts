@@ -1,4 +1,4 @@
-import { Location } from 'angular2/router';
+import { Location } from '@angular/common';
 import { JAuth } from "../base/auth";
 export declare class JFwNavTree {
     private location;

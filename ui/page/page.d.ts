@@ -1,5 +1,5 @@
-import { OnInit, ElementRef, Renderer } from 'angular2/core';
-import { ControlValueAccessor, NgModel } from 'angular2/common';
+import { OnInit, ElementRef, Renderer } from '@angular/core';
+import { ControlValueAccessor, NgModel } from '@angular/common';
 export interface IAttribute {
     [name: string]: any;
 }

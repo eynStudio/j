@@ -1,4 +1,4 @@
-import { ElementRef, EventEmitter } from 'angular2/core';
+import { ElementRef, EventEmitter } from '@angular/core';
 import { JUploader } from './uploader';
 export declare class JUpload {
     el: ElementRef;

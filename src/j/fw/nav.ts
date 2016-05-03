@@ -1,13 +1,12 @@
-import {Component} from 'angular2/core';
-import {NgFor, NgIf, NgClass} from 'angular2/common';
-import {Location} from 'angular2/router';
+import {Component} from '@angular/core';
+import {NgClass,Location} from '@angular/common';
 import {JAuth} from "../base/auth";
 
 @Component({
     selector: 'j-fw-nav-tree',
     inputs:['nodes:nodes'],
     template:`<ul class="list-group">
-<li *ngFor="#n of nodes" class="list-group-item">
+<li *ngFor="let n of nodes" class="list-group-item">
     <a *ngIf="n.Nodes.length>0" (click)="n.$open=!n.$open" [ngClass]="{active:isActive(n.Uri)}">
         <i class="fa" [ngClass]="'fa-'+n.M.Icon"></i>
         {{n.Mc}}
@@ -19,7 +18,7 @@ import {JAuth} from "../base/auth";
     <j-fw-nav-tree *ngIf="n.Nodes.length>0 && (n.$open||isActive(n.Uri))" [nodes]="n.Nodes"></j-fw-nav-tree>
 </li>
 </ul>`,
-    directives: [NgFor,NgIf,JFwNavTree,NgClass],
+    directives: [JFwNavTree,NgClass],
 })
 export class JFwNavTree {
     constructor( private location:Location) {

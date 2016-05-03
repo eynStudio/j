@@ -7,9 +7,9 @@ declare module "j/core/localstorage" {
     }
 }
 declare module "j/core/r" {
-    import { Http, Headers, RequestOptionsArgs, RequestMethod } from 'angular2/http';
+    import { Http, Headers, RequestOptionsArgs, RequestMethod } from '@angular/http';
     import { Observable } from 'rxjs/Observable';
-    import { Router } from 'angular2/router';
+    import { Router } from '@angular/router-deprecated';
     import { JLocalStorage } from "j/core/localstorage";
     export class R {
         private http;
@@ -30,7 +30,7 @@ declare module "j/core/r" {
 }
 declare module "j/base/auth" {
     import { R } from "j/core/r";
-    import { Router } from 'angular2/router';
+    import { Router } from '@angular/router-deprecated';
     import { JLocalStorage } from "j/core/localstorage";
     export class JAuth {
         private localstorage;
@@ -85,7 +85,7 @@ declare module "j/core/filter" {
     }
 }
 declare module "j/base/store" {
-    import { EventEmitter } from "angular2/core";
+    import { EventEmitter } from "@angular/core";
     import { R } from "j/core/r";
     import { Observable } from "rxjs/Observable";
     import { JFilterCfg } from "j/core/filter";
@@ -217,7 +217,7 @@ declare module "j/base" {
     export * from "j/base/zd";
 }
 declare module "j/core/res" {
-    import { EventEmitter } from 'angular2/core';
+    import { EventEmitter } from '@angular/core';
     import { R } from "j/core/r";
     import { JFilterCfg } from "j/core/filter";
     import { Observable } from "rxjs/Observable";
@@ -319,7 +319,7 @@ declare module "j/core" {
     export * from "j/core/filter";
 }
 declare module "j/fw/nav" {
-    import { Location } from 'angular2/router';
+    import { Location } from '@angular/common';
     import { JAuth } from "j/base/auth";
     export class JFwNavTree {
         private location;
@@ -343,8 +343,7 @@ declare module "j/fw/top" {
     }
 }
 declare module "j/fw/setting" {
-    import { ElementRef, DynamicComponentLoader, ComponentRef } from 'angular2/core';
-    import { Type } from 'angular2/src/facade/lang';
+    import { ElementRef, DynamicComponentLoader, ComponentRef, Type } from '@angular/core';
     export class JFwSetting {
         private dcl;
         private elemRef;
@@ -367,7 +366,7 @@ declare module "j/fw/fw" {
     }
 }
 declare module "j/fw/jfw" {
-    import { Type } from 'angular2/src/facade/lang';
+    import { Type } from '@angular/core';
     import { JFwComp } from "j/fw/fw";
     export class JFw {
         fw: JFwComp;
@@ -379,8 +378,8 @@ declare module "j/fw/jfw" {
     }
 }
 declare module "j/ui/page/page" {
-    import { OnInit, ElementRef, Renderer } from 'angular2/core';
-    import { ControlValueAccessor, NgModel } from 'angular2/common';
+    import { OnInit, ElementRef, Renderer } from '@angular/core';
+    import { ControlValueAccessor, NgModel } from '@angular/common';
     export interface IAttribute {
         [name: string]: any;
     }
@@ -450,7 +449,7 @@ declare module "j/ui/page/page" {
 }
 declare module "j/fw/bld" {
     import { JCmdCfg } from "j/base/cfg";
-    import { Router } from "angular2/router";
+    import { Router } from "@angular/router-deprecated";
     import { IStore } from "j/base/store";
     export interface JSearchCfg {
         msg?: string;
@@ -503,7 +502,7 @@ declare module "j/fw" {
     export * from "j/fw/fw";
 }
 declare module "j/pipe/filter" {
-    import { PipeTransform } from 'angular2/core';
+    import { PipeTransform } from '@angular/core';
     export class JFilterPipe implements PipeTransform {
         transform(value: any, args: string[]): any;
     }
@@ -522,7 +521,7 @@ declare module "j/utils/dom" {
     export function clearDimensions(id: string): void;
 }
 declare module "j/ui/jui" {
-    import { ElementRef } from 'angular2/core';
+    import { ElementRef } from '@angular/core';
     export class Jui {
         protected elemRef: ElementRef;
         private _id;
@@ -545,7 +544,7 @@ declare module "j/ui/nav/nav-tree" {
     }
 }
 declare module "j/ui/uploader/uploader" {
-    import { EventEmitter } from 'angular2/core';
+    import { EventEmitter } from '@angular/core';
     export class JUploader {
         url: string;
         cors: boolean;
@@ -581,7 +580,7 @@ declare module "j/ui/uploader/uploader" {
     }
 }
 declare module "j/ui/uploader/select" {
-    import { ElementRef, EventEmitter } from 'angular2/core';
+    import { ElementRef, EventEmitter } from '@angular/core';
     import { JUploader } from "j/ui/uploader/uploader";
     export class JUpload {
         el: ElementRef;

@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('angular2/core');
-var router_1 = require('angular2/router');
+var core_1 = require('@angular/core');
+var router_deprecated_1 = require('@angular/router-deprecated');
 var auth_1 = require("../base/auth");
 var jfw_1 = require("./jfw");
 var JFwTop = (function () {
@@ -31,7 +31,7 @@ var JFwTop = (function () {
         core_1.Component({
             selector: 'j-fw-top',
             template: "<a class=\"navbar-brand\" [routerLink]=\"['./Home']\"> {{title}} </a>\n<div class=\"top-user pull-xs-right\" *ngIf=\"auth.isLogin()\">\n    <span>{{auth.Name}}</span>\n    <button class=\"btn btn-secondary btn-sm\" (click)=\"logout()\"><i class=\"fa fa-sign-out\"></i></button>\n</div>",
-            directives: [router_1.RouterLink],
+            directives: [router_deprecated_1.RouterLink],
         }), 
         __metadata('design:paramtypes', [auth_1.JAuth, jfw_1.JFw])
     ], JFwTop);

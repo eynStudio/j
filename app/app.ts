@@ -1,9 +1,9 @@
-import {Component, provide} from 'angular2/core';
+import {Component, provide} from '@angular/core';
 import {JFwComp} from "j/fw/fw";
 import {JAuth} from "j/base/auth";
 import {JZd} from "j/base/zd";
-import {Router, RouteConfig} from "angular2/router";
-import {CORE_DIRECTIVES} from "angular2/common";
+import {Router, RouteConfig} from "@angular/router-deprecated";
+import {CORE_DIRECTIVES} from "@angular/common";
 import {JFw} from "j/fw/jfw";
 import {JDemoAuth} from "./base/auth";
 import {JDemoUi} from "./ui/ui";

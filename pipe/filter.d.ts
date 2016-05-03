@@ -1,4 +1,4 @@
-import { PipeTransform } from 'angular2/core';
+import { PipeTransform } from '@angular/core';
 export declare class JFilterPipe implements PipeTransform {
     transform(value: any, args: string[]): any;
 }

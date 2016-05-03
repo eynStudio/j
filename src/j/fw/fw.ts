@@ -1,5 +1,5 @@
-import {Component, ViewChild} from 'angular2/core';
-import {  RouterOutlet } from 'angular2/router';
+import {Component, ViewChild} from '@angular/core';
+import {  RouterOutlet } from '@angular/router-deprecated';
 import { JFwNav } from './nav';
 import { JFwTop } from './top';
 import {JAuth} from "../base/auth";

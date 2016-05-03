@@ -1,5 +1,5 @@
-import {Component, ElementRef, DynamicComponentLoader, ComponentRef} from 'angular2/core';
-import {Type} from 'angular2/src/facade/lang';
+import {Component, ElementRef, DynamicComponentLoader, ComponentRef,Type} from '@angular/core';
+// import {Type} from 'angular2/src/facade/lang';
 
 @Component({
     selector: 'j-fw-setting',

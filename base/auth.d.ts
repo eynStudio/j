@@ -1,5 +1,5 @@
 import { R } from '../core/r';
-import { Router } from 'angular2/router';
+import { Router } from '@angular/router-deprecated';
 import { JLocalStorage } from "../core/localstorage";
 export declare class JAuth {
     private localstorage;

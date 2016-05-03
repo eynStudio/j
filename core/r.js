@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('angular2/core');
-var http_1 = require('angular2/http');
-var router_1 = require('angular2/router');
+var core_1 = require('@angular/core');
+var http_1 = require('@angular/http');
+var router_deprecated_1 = require('@angular/router-deprecated');
 var localstorage_1 = require('./localstorage');
 var R = (function () {
     function R(http, router, localstorage) {
@@ -72,7 +72,7 @@ var R = (function () {
     };
     R = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, router_1.Router, localstorage_1.JLocalStorage])
+        __metadata('design:paramtypes', [http_1.Http, router_deprecated_1.Router, localstorage_1.JLocalStorage])
     ], R);
     return R;
 }());

@@ -8,9 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('angular2/core');
-var common_1 = require('angular2/common');
-var router_1 = require('angular2/router');
+var core_1 = require('@angular/core');
+var common_1 = require('@angular/common');
 var auth_1 = require("../base/auth");
 var JFwNavTree = (function () {
     function JFwNavTree(location) {
@@ -23,10 +22,10 @@ var JFwNavTree = (function () {
         core_1.Component({
             selector: 'j-fw-nav-tree',
             inputs: ['nodes:nodes'],
-            template: "<ul class=\"list-group\">\n<li *ngFor=\"#n of nodes\" class=\"list-group-item\">\n    <a *ngIf=\"n.Nodes.length>0\" (click)=\"n.$open=!n.$open\" [ngClass]=\"{active:isActive(n.Uri)}\">\n        <i class=\"fa\" [ngClass]=\"'fa-'+n.M.Icon\"></i>\n        {{n.Mc}}\n    </a>\n    <a *ngIf=\"n.Nodes.length==0\" [href]=\"'#/'+n.Uri.split('.').join('/')\">\n        <i class=\"fa\" [ngClass]=\"'fa-'+n.M.Icon\"></i>\n        {{n.Mc}}\n    </a>\n    <j-fw-nav-tree *ngIf=\"n.Nodes.length>0 && (n.$open||isActive(n.Uri))\" [nodes]=\"n.Nodes\"></j-fw-nav-tree>\n</li>\n</ul>",
-            directives: [common_1.NgFor, common_1.NgIf, JFwNavTree, common_1.NgClass],
+            template: "<ul class=\"list-group\">\n<li *ngFor=\"let n of nodes\" class=\"list-group-item\">\n    <a *ngIf=\"n.Nodes.length>0\" (click)=\"n.$open=!n.$open\" [ngClass]=\"{active:isActive(n.Uri)}\">\n        <i class=\"fa\" [ngClass]=\"'fa-'+n.M.Icon\"></i>\n        {{n.Mc}}\n    </a>\n    <a *ngIf=\"n.Nodes.length==0\" [href]=\"'#/'+n.Uri.split('.').join('/')\">\n        <i class=\"fa\" [ngClass]=\"'fa-'+n.M.Icon\"></i>\n        {{n.Mc}}\n    </a>\n    <j-fw-nav-tree *ngIf=\"n.Nodes.length>0 && (n.$open||isActive(n.Uri))\" [nodes]=\"n.Nodes\"></j-fw-nav-tree>\n</li>\n</ul>",
+            directives: [JFwNavTree, common_1.NgClass],
         }), 
-        __metadata('design:paramtypes', [router_1.Location])
+        __metadata('design:paramtypes', [common_1.Location])
     ], JFwNavTree);
     return JFwNavTree;
 }());

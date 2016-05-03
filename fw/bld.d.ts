@@ -1,5 +1,5 @@
 import { JCmdCfg } from "../base/cfg";
-import { Router } from "angular2/router";
+import { Router } from "@angular/router-deprecated";
 import { IStore } from "../base/store";
 export interface JSearchCfg {
     msg?: string;

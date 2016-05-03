@@ -1,8 +1,8 @@
-import {Component, Input, ViewChild} from "angular2/core";
+import {Component, Input, ViewChild} from "@angular/core";
 import {PAGINATION_DIRECTIVES} from "../ui/page/page";
-import {NgIf, NgFor} from "angular2/common";
+import {NgIf, NgFor} from "@angular/common";
 import {JCmdCfg} from "../base/cfg";
-import {Router} from "angular2/router";
+import {Router} from "@angular/router-deprecated";
 import {IStore} from "../base/store";
 
 let defaultCmds = {

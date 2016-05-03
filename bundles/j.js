@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-System.register("j/core/localstorage", ['angular2/core'], function(exports_1, context_1) {
+System.register("j/core/localstorage", ['@angular/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var core_1;
@@ -64,10 +64,10 @@ System.register("j/core/localstorage", ['angular2/core'], function(exports_1, co
         }
     }
 });
-System.register("j/core/r", ['angular2/core', 'angular2/http', 'angular2/router', "j/core/localstorage"], function(exports_2, context_2) {
+System.register("j/core/r", ['@angular/core', '@angular/http', '@angular/router-deprecated', "j/core/localstorage"], function(exports_2, context_2) {
     "use strict";
     var __moduleName = context_2 && context_2.id;
-    var core_2, http_1, router_1, localstorage_1;
+    var core_2, http_1, router_deprecated_1, localstorage_1;
     var R;
     return {
         setters:[
@@ -77,8 +77,8 @@ System.register("j/core/r", ['angular2/core', 'angular2/http', 'angular2/router'
             function (http_1_1) {
                 http_1 = http_1_1;
             },
-            function (router_1_1) {
-                router_1 = router_1_1;
+            function (router_deprecated_1_1) {
+                router_deprecated_1 = router_deprecated_1_1;
             },
             function (localstorage_1_1) {
                 localstorage_1 = localstorage_1_1;
@@ -144,7 +144,7 @@ System.register("j/core/r", ['angular2/core', 'angular2/http', 'angular2/router'
                 };
                 R = __decorate([
                     core_2.Injectable(), 
-                    __metadata('design:paramtypes', [http_1.Http, router_1.Router, localstorage_1.JLocalStorage])
+                    __metadata('design:paramtypes', [http_1.Http, router_deprecated_1.Router, localstorage_1.JLocalStorage])
                 ], R);
                 return R;
             }());
@@ -152,10 +152,10 @@ System.register("j/core/r", ['angular2/core', 'angular2/http', 'angular2/router'
         }
     }
 });
-System.register("j/base/auth", ['angular2/core', "j/core/r", 'angular2/router', "j/core/localstorage"], function(exports_3, context_3) {
+System.register("j/base/auth", ['@angular/core', "j/core/r", '@angular/router-deprecated', "j/core/localstorage"], function(exports_3, context_3) {
     "use strict";
     var __moduleName = context_3 && context_3.id;
-    var core_3, r_1, router_2, localstorage_2;
+    var core_3, r_1, router_deprecated_2, localstorage_2;
     var JAuth;
     return {
         setters:[
@@ -165,8 +165,8 @@ System.register("j/base/auth", ['angular2/core', "j/core/r", 'angular2/router', 
             function (r_1_1) {
                 r_1 = r_1_1;
             },
-            function (router_2_1) {
-                router_2 = router_2_1;
+            function (router_deprecated_2_1) {
+                router_deprecated_2 = router_deprecated_2_1;
             },
             function (localstorage_2_1) {
                 localstorage_2 = localstorage_2_1;
@@ -221,7 +221,7 @@ System.register("j/base/auth", ['angular2/core', "j/core/r", 'angular2/router', 
                 };
                 JAuth = __decorate([
                     core_3.Injectable(), 
-                    __metadata('design:paramtypes', [localstorage_2.JLocalStorage, r_1.R, router_2.Router])
+                    __metadata('design:paramtypes', [localstorage_2.JLocalStorage, r_1.R, router_deprecated_2.Router])
                 ], JAuth);
                 return JAuth;
             }());
@@ -310,7 +310,7 @@ System.register("j/core/filter", [], function(exports_5, context_5) {
         }
     }
 });
-System.register("j/base/store", ["angular2/core", "j/core/r", "rxjs/Rx", "angular2/http"], function(exports_6, context_6) {
+System.register("j/base/store", ["@angular/core", "j/core/r", "rxjs/Rx", "@angular/http"], function(exports_6, context_6) {
     "use strict";
     var __moduleName = context_6 && context_6.id;
     var core_4, r_2, Rx, http_2;
@@ -631,7 +631,7 @@ System.register("j/base/store", ["angular2/core", "j/core/r", "rxjs/Rx", "angula
         }
     }
 });
-System.register("j/base/zd", ['angular2/core', "j/core/r", 'rxjs/Observable'], function(exports_7, context_7) {
+System.register("j/base/zd", ['@angular/core', "j/core/r", 'rxjs/Observable'], function(exports_7, context_7) {
     "use strict";
     var __moduleName = context_7 && context_7.id;
     var core_5, r_3, Observable_1;
@@ -730,7 +730,7 @@ System.register("j/base", ["j/base/auth", "j/base/store", "j/base/zd"], function
         }
     }
 });
-System.register("j/core/res", ['angular2/core', 'angular2/http', "j/core/r", "rxjs/Rx"], function(exports_9, context_9) {
+System.register("j/core/res", ['@angular/core', '@angular/http', "j/core/r", "rxjs/Rx"], function(exports_9, context_9) {
     "use strict";
     var __moduleName = context_9 && context_9.id;
     var core_6, http_3, r_4, Rx;
@@ -1055,10 +1055,10 @@ System.register("j/core", ["j/core/localstorage", "j/core/r", "j/core/res", "j/c
         }
     }
 });
-System.register("j/fw/nav", ['angular2/core', 'angular2/common', 'angular2/router', "j/base/auth"], function(exports_11, context_11) {
+System.register("j/fw/nav", ['@angular/core', '@angular/common', "j/base/auth"], function(exports_11, context_11) {
     "use strict";
     var __moduleName = context_11 && context_11.id;
-    var core_7, common_1, router_3, auth_2;
+    var core_7, common_1, auth_2;
     var JFwNavTree, JFwNav;
     return {
         setters:[
@@ -1067,9 +1067,6 @@ System.register("j/fw/nav", ['angular2/core', 'angular2/common', 'angular2/route
             },
             function (common_1_1) {
                 common_1 = common_1_1;
-            },
-            function (router_3_1) {
-                router_3 = router_3_1;
             },
             function (auth_2_1) {
                 auth_2 = auth_2_1;
@@ -1086,10 +1083,10 @@ System.register("j/fw/nav", ['angular2/core', 'angular2/common', 'angular2/route
                     core_7.Component({
                         selector: 'j-fw-nav-tree',
                         inputs: ['nodes:nodes'],
-                        template: "<ul class=\"list-group\">\n<li *ngFor=\"#n of nodes\" class=\"list-group-item\">\n    <a *ngIf=\"n.Nodes.length>0\" (click)=\"n.$open=!n.$open\" [ngClass]=\"{active:isActive(n.Uri)}\">\n        <i class=\"fa\" [ngClass]=\"'fa-'+n.M.Icon\"></i>\n        {{n.Mc}}\n    </a>\n    <a *ngIf=\"n.Nodes.length==0\" [href]=\"'#/'+n.Uri.split('.').join('/')\">\n        <i class=\"fa\" [ngClass]=\"'fa-'+n.M.Icon\"></i>\n        {{n.Mc}}\n    </a>\n    <j-fw-nav-tree *ngIf=\"n.Nodes.length>0 && (n.$open||isActive(n.Uri))\" [nodes]=\"n.Nodes\"></j-fw-nav-tree>\n</li>\n</ul>",
-                        directives: [common_1.NgFor, common_1.NgIf, JFwNavTree, common_1.NgClass],
+                        template: "<ul class=\"list-group\">\n<li *ngFor=\"let n of nodes\" class=\"list-group-item\">\n    <a *ngIf=\"n.Nodes.length>0\" (click)=\"n.$open=!n.$open\" [ngClass]=\"{active:isActive(n.Uri)}\">\n        <i class=\"fa\" [ngClass]=\"'fa-'+n.M.Icon\"></i>\n        {{n.Mc}}\n    </a>\n    <a *ngIf=\"n.Nodes.length==0\" [href]=\"'#/'+n.Uri.split('.').join('/')\">\n        <i class=\"fa\" [ngClass]=\"'fa-'+n.M.Icon\"></i>\n        {{n.Mc}}\n    </a>\n    <j-fw-nav-tree *ngIf=\"n.Nodes.length>0 && (n.$open||isActive(n.Uri))\" [nodes]=\"n.Nodes\"></j-fw-nav-tree>\n</li>\n</ul>",
+                        directives: [JFwNavTree, common_1.NgClass],
                     }), 
-                    __metadata('design:paramtypes', [router_3.Location])
+                    __metadata('design:paramtypes', [common_1.Location])
                 ], JFwNavTree);
                 return JFwNavTree;
             }());
@@ -1112,18 +1109,18 @@ System.register("j/fw/nav", ['angular2/core', 'angular2/common', 'angular2/route
         }
     }
 });
-System.register("j/fw/top", ['angular2/core', 'angular2/router', "j/base/auth", "j/fw/jfw"], function(exports_12, context_12) {
+System.register("j/fw/top", ['@angular/core', '@angular/router-deprecated', "j/base/auth", "j/fw/jfw"], function(exports_12, context_12) {
     "use strict";
     var __moduleName = context_12 && context_12.id;
-    var core_8, router_4, auth_3, jfw_1;
+    var core_8, router_deprecated_3, auth_3, jfw_1;
     var JFwTop;
     return {
         setters:[
             function (core_8_1) {
                 core_8 = core_8_1;
             },
-            function (router_4_1) {
-                router_4 = router_4_1;
+            function (router_deprecated_3_1) {
+                router_deprecated_3 = router_deprecated_3_1;
             },
             function (auth_3_1) {
                 auth_3 = auth_3_1;
@@ -1151,7 +1148,7 @@ System.register("j/fw/top", ['angular2/core', 'angular2/router', "j/base/auth", 
                     core_8.Component({
                         selector: 'j-fw-top',
                         template: "<a class=\"navbar-brand\" [routerLink]=\"['./Home']\"> {{title}} </a>\n<div class=\"top-user pull-xs-right\" *ngIf=\"auth.isLogin()\">\n    <span>{{auth.Name}}</span>\n    <button class=\"btn btn-secondary btn-sm\" (click)=\"logout()\"><i class=\"fa fa-sign-out\"></i></button>\n</div>",
-                        directives: [router_4.RouterLink],
+                        directives: [router_deprecated_3.RouterLink],
                     }), 
                     __metadata('design:paramtypes', [auth_3.JAuth, jfw_1.JFw])
                 ], JFwTop);
@@ -1161,7 +1158,7 @@ System.register("j/fw/top", ['angular2/core', 'angular2/router', "j/base/auth", 
         }
     }
 });
-System.register("j/fw/setting", ['angular2/core'], function(exports_13, context_13) {
+System.register("j/fw/setting", ['@angular/core'], function(exports_13, context_13) {
     "use strict";
     var __moduleName = context_13 && context_13.id;
     var core_9;
@@ -1209,18 +1206,18 @@ System.register("j/fw/setting", ['angular2/core'], function(exports_13, context_
         }
     }
 });
-System.register("j/fw/fw", ['angular2/core', 'angular2/router', "j/fw/nav", "j/fw/top", "j/base/auth", "j/fw/setting", "j/fw/jfw"], function(exports_14, context_14) {
+System.register("j/fw/fw", ['@angular/core', '@angular/router-deprecated', "j/fw/nav", "j/fw/top", "j/base/auth", "j/fw/setting", "j/fw/jfw"], function(exports_14, context_14) {
     "use strict";
     var __moduleName = context_14 && context_14.id;
-    var core_10, router_5, nav_1, top_1, auth_4, setting_1, jfw_2;
+    var core_10, router_deprecated_4, nav_1, top_1, auth_4, setting_1, jfw_2;
     var JFwComp;
     return {
         setters:[
             function (core_10_1) {
                 core_10 = core_10_1;
             },
-            function (router_5_1) {
-                router_5 = router_5_1;
+            function (router_deprecated_4_1) {
+                router_deprecated_4 = router_deprecated_4_1;
             },
             function (nav_1_1) {
                 nav_1 = nav_1_1;
@@ -1252,7 +1249,7 @@ System.register("j/fw/fw", ['angular2/core', 'angular2/router', "j/fw/nav", "j/f
                     core_10.Component({
                         selector: 'j-fw',
                         template: "<j-fw-top role=\"navigation\" class=\"navbar navbar-fixed-top navbar-dark bg-primary j-fw-top-sm\"></j-fw-top>\n<j-fw-nav  *ngIf=\"auth.isLogin()\"></j-fw-nav>\n<router-outlet></router-outlet>\n<j-fw-setting></j-fw-setting>",
-                        directives: [router_5.RouterOutlet, nav_1.JFwNav, top_1.JFwTop, setting_1.JFwSetting],
+                        directives: [router_deprecated_4.RouterOutlet, nav_1.JFwNav, top_1.JFwTop, setting_1.JFwSetting],
                     }), 
                     __metadata('design:paramtypes', [auth_4.JAuth, jfw_2.JFw])
                 ], JFwComp);
@@ -1262,7 +1259,7 @@ System.register("j/fw/fw", ['angular2/core', 'angular2/router', "j/fw/nav", "j/f
         }
     }
 });
-System.register("j/fw/jfw", ['angular2/core'], function(exports_15, context_15) {
+System.register("j/fw/jfw", ['@angular/core'], function(exports_15, context_15) {
     "use strict";
     var __moduleName = context_15 && context_15.id;
     var core_11;
@@ -1293,7 +1290,7 @@ System.register("j/fw/jfw", ['angular2/core'], function(exports_15, context_15) 
         }
     }
 });
-System.register("j/ui/page/page", ['angular2/core', 'angular2/common'], function(exports_16, context_16) {
+System.register("j/ui/page/page", ['@angular/core', '@angular/common'], function(exports_16, context_16) {
     "use strict";
     var __moduleName = context_16 && context_16.id;
     var core_12, common_2;
@@ -1571,7 +1568,7 @@ System.register("j/ui/page/page", ['angular2/core', 'angular2/common'], function
         }
     }
 });
-System.register("j/fw/bld", ["angular2/core", "j/ui/page/page", "angular2/common"], function(exports_17, context_17) {
+System.register("j/fw/bld", ["@angular/core", "j/ui/page/page", "@angular/common"], function(exports_17, context_17) {
     "use strict";
     var __moduleName = context_17 && context_17.id;
     var core_13, page_1, common_3;
@@ -1721,7 +1718,7 @@ System.register("j/fw", ["j/fw/jfw", "j/fw/top", "j/fw/nav", "j/fw/setting", "j/
         }
     }
 });
-System.register("j/pipe/filter", ['angular2/core'], function(exports_19, context_19) {
+System.register("j/pipe/filter", ['@angular/core'], function(exports_19, context_19) {
     "use strict";
     var __moduleName = context_19 && context_19.id;
     var core_14;
@@ -1854,18 +1851,18 @@ System.register("j/ui/jui", ["j/utils/dom"], function(exports_22, context_22) {
         }
     }
 });
-System.register("j/ui/nav/nav-tree", ['angular2/core', 'angular2/router'], function(exports_23, context_23) {
+System.register("j/ui/nav/nav-tree", ['@angular/core', '@angular/router-deprecated'], function(exports_23, context_23) {
     "use strict";
     var __moduleName = context_23 && context_23.id;
-    var core_15, router_6;
+    var core_15, router_deprecated_5;
     var NavTree;
     return {
         setters:[
             function (core_15_1) {
                 core_15 = core_15_1;
             },
-            function (router_6_1) {
-                router_6 = router_6_1;
+            function (router_deprecated_5_1) {
+                router_deprecated_5 = router_deprecated_5_1;
             }],
         execute: function() {
             NavTree = (function () {
@@ -1874,7 +1871,7 @@ System.register("j/ui/nav/nav-tree", ['angular2/core', 'angular2/router'], funct
                 NavTree = __decorate([
                     core_15.Component({
                         selector: 'nav-tree',
-                        directives: [router_6.ROUTER_DIRECTIVES, NavTree],
+                        directives: [router_deprecated_5.ROUTER_DIRECTIVES, NavTree],
                         inputs: ['nodes:nodes'],
                         template: "<ul class=\"list-group\">\n<li *ngFor=\"#n of nodes\" class=\"list-group-item\">\n    <a [routerLink]=\"['./Edit',{id:n.M.Id}]\"><i class=\"fa {{'fa-'+n.M.Icon}}\"></i>{{n.Mc}}</a>\n    <i *ngIf=\"n.Nodes.length>0\" class=\"pull-right fa {{n.$open?'fa-chevron-up':'fa-chevron-down'}}\" (click)=\"n.$open=!n.$open\" ></i>\n    <nav-tree *ngIf=\"n.$open && n.Nodes.length>0\" [nodes]=\"n.Nodes\"></nav-tree>\n</li>\n</ul>"
                     }), 
@@ -1886,7 +1883,7 @@ System.register("j/ui/nav/nav-tree", ['angular2/core', 'angular2/router'], funct
         }
     }
 });
-System.register("j/ui/uploader/uploader", ['angular2/core'], function(exports_24, context_24) {
+System.register("j/ui/uploader/uploader", ['@angular/core'], function(exports_24, context_24) {
     "use strict";
     var __moduleName = context_24 && context_24.id;
     var core_16;
@@ -2074,7 +2071,7 @@ System.register("j/ui/uploader/uploader", ['angular2/core'], function(exports_24
         }
     }
 });
-System.register("j/ui/uploader/select", ['angular2/core', "j/ui/uploader/uploader"], function(exports_25, context_25) {
+System.register("j/ui/uploader/select", ['@angular/core', "j/ui/uploader/uploader"], function(exports_25, context_25) {
     "use strict";
     var __moduleName = context_25 && context_25.id;
     var core_17, uploader_1;

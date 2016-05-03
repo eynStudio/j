@@ -1,5 +1,4 @@
-import { ElementRef, DynamicComponentLoader, ComponentRef } from 'angular2/core';
-import { Type } from 'angular2/src/facade/lang';
+import { ElementRef, DynamicComponentLoader, ComponentRef, Type } from '@angular/core';
 export declare class JFwSetting {
     private dcl;
     private elemRef;

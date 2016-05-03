@@ -1,7 +1,8 @@
-import {provide, enableProdMode} from 'angular2/core';
-import { bootstrap } from 'angular2/platform/browser';
-import { HTTP_PROVIDERS} from 'angular2/http';
-import { ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy } from 'angular2/router';
+import {provide, enableProdMode} from '@angular/core';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import {bootstrap}    from '@angular/platform-browser-dynamic';
+import { HTTP_PROVIDERS} from '@angular/http';
+import { ROUTER_PROVIDERS } from '@angular/router-deprecated'; 
 import {JLocalStorage} from "j/core/localstorage"
 import {R} from 'j/core/r'
 import {JRes} from 'j/core/res'

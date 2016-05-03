@@ -1,9 +1,9 @@
-import {Injectable,EventEmitter} from "angular2/core";
+import {Injectable,EventEmitter} from "@angular/core";
 import {R} from "../core/r";
 import {Observable} from "rxjs/Observable";
 import * as Rx from "rxjs/Rx";
 import {JFilterCfg} from "../core/filter";
-import {Headers} from "angular2/http";
+import {Headers} from "@angular/http";
 
 export interface IStore{
     refreshOb():Observable<any>;

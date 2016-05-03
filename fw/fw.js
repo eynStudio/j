@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('angular2/core');
-var router_1 = require('angular2/router');
+var core_1 = require('@angular/core');
+var router_deprecated_1 = require('@angular/router-deprecated');
 var nav_1 = require('./nav');
 var top_1 = require('./top');
 var auth_1 = require("../base/auth");
@@ -29,7 +29,7 @@ var JFwComp = (function () {
         core_1.Component({
             selector: 'j-fw',
             template: "<j-fw-top role=\"navigation\" class=\"navbar navbar-fixed-top navbar-dark bg-primary j-fw-top-sm\"></j-fw-top>\n<j-fw-nav  *ngIf=\"auth.isLogin()\"></j-fw-nav>\n<router-outlet></router-outlet>\n<j-fw-setting></j-fw-setting>",
-            directives: [router_1.RouterOutlet, nav_1.JFwNav, top_1.JFwTop, setting_1.JFwSetting],
+            directives: [router_deprecated_1.RouterOutlet, nav_1.JFwNav, top_1.JFwTop, setting_1.JFwSetting],
         }), 
         __metadata('design:paramtypes', [auth_1.JAuth, jfw_1.JFw])
     ], JFwComp);

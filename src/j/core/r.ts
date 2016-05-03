@@ -1,7 +1,7 @@
-import {Injectable } from 'angular2/core';
-import {Http, Headers, RequestOptionsArgs, RequestMethod} from 'angular2/http';
+import {Injectable } from '@angular/core';
+import {Http, Headers, RequestOptionsArgs, RequestMethod} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {Router} from 'angular2/router';
+import {Router} from '@angular/router-deprecated';
 import {JLocalStorage} from './localstorage'
 
 @Injectable()

@@ -1,4 +1,4 @@
-import {ElementRef} from 'angular2/core';
+import {ElementRef} from '@angular/core';
 import * as dom from '../utils/dom';
 
 let _uid:number = 0;

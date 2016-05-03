@@ -1,4 +1,4 @@
-import { EventEmitter } from 'angular2/core';
+import { EventEmitter } from '@angular/core';
 import { R } from './r';
 import { JFilterCfg } from "./filter";
 import { Observable } from "rxjs/Observable";

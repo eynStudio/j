@@ -1,5 +1,5 @@
-import {Injectable,EventEmitter} from 'angular2/core';
-import {Headers} from 'angular2/http';
+import {Injectable,EventEmitter} from '@angular/core';
+import {Headers} from '@angular/http';
 import {R} from './r';
 import {JFilterCfg} from "./filter";
 import {Observable} from "rxjs/Observable";

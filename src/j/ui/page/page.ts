@@ -3,8 +3,8 @@ import {
     OnInit, Input, Output,
     ElementRef, EventEmitter,
     Self, Renderer
-} from 'angular2/core';
-import { NgFor, NgIf, NgClass, ControlValueAccessor, NgModel } from 'angular2/common';
+} from '@angular/core';
+import { NgFor, NgIf, NgClass, ControlValueAccessor, NgModel } from '@angular/common';
 
 export interface IAttribute {
     [name: string]: any;

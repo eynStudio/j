@@ -13,10 +13,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("angular2/core");
+var core_1 = require("@angular/core");
 var r_1 = require("../core/r");
 var Rx = require("rxjs/Rx");
-var http_1 = require("angular2/http");
+var http_1 = require("@angular/http");
 var Store = (function () {
     function Store(r, cfg) {
         this.r = r;

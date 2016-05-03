@@ -1,6 +1,6 @@
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import {R} from '../core/r';
-import {Router} from 'angular2/router';
+import {Router} from '@angular/router-deprecated';
 import {JLocalStorage} from "../core/localstorage";
 
 @Injectable()
