@@ -16,7 +16,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var r_1 = require('./r');
-var Rx = require("rxjs/Rx");
+var Observable_1 = require("rxjs/Observable");
 var Res = (function () {
     function Res(r, cfg) {
         this.r = r;
@@ -33,7 +33,7 @@ var Res = (function () {
         this.refreshOb().subscribe();
     };
     Res.prototype.refreshOb = function () {
-        return Rx.Observable.empty();
+        return Observable_1.Observable.empty();
     };
     Res.prototype.getPath = function () {
         var _this = this;
@@ -41,7 +41,7 @@ var Res = (function () {
             return this.cfg.pRes.getPath().map(function (x) { return x + _this.cfg.path; });
         }
         else {
-            return Rx.Observable.of(this.cfg.path);
+            return Observable_1.Observable.of(this.cfg.path);
         }
     };
     Object.defineProperty(Res.prototype, "pRes", {
@@ -79,7 +79,7 @@ var ViewRes = (function (_super) {
         get: function () {
             var _this = this;
             if (this.m.Id)
-                return Rx.Observable.of(this.m.Id);
+                return Observable_1.Observable.of(this.m.Id);
             return this.refreshOb().map(function (x) { return _this.m.Id; });
         },
         enumerable: true,
@@ -100,7 +100,7 @@ var ViewRes = (function (_super) {
         this.id = id;
         if (refresh)
             return this.refreshOb();
-        return Rx.Observable.empty();
+        return Observable_1.Observable.empty();
     };
     ViewRes.prototype.show = function (id, refresh) {
         if (refresh === void 0) { refresh = true; }

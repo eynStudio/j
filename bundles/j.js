@@ -310,10 +310,10 @@ System.register("j/core/filter", [], function(exports_5, context_5) {
         }
     }
 });
-System.register("j/base/store", ["@angular/core", "j/core/r", "rxjs/Rx", "@angular/http"], function(exports_6, context_6) {
+System.register("j/base/store", ["@angular/core", "j/core/r", "rxjs/Observable", "@angular/http"], function(exports_6, context_6) {
     "use strict";
     var __moduleName = context_6 && context_6.id;
-    var core_4, r_2, Rx, http_2;
+    var core_4, r_2, Observable_1, http_2;
     var Store, JListStore, JPageStore, JViewStore, JEditStore, JWfStore, JSubStore, JStore;
     return {
         setters:[
@@ -323,8 +323,8 @@ System.register("j/base/store", ["@angular/core", "j/core/r", "rxjs/Rx", "@angul
             function (r_2_1) {
                 r_2 = r_2_1;
             },
-            function (Rx_1) {
-                Rx = Rx_1;
+            function (Observable_1_1) {
+                Observable_1 = Observable_1_1;
             },
             function (http_2_1) {
                 http_2 = http_2_1;
@@ -346,10 +346,10 @@ System.register("j/base/store", ["@angular/core", "j/core/r", "rxjs/Rx", "@angul
                     this.refreshOb().subscribe();
                 };
                 Store.prototype.refreshOb = function () {
-                    return Rx.Observable.empty();
+                    return Observable_1.Observable.empty();
                 };
                 Store.prototype.getMid = function () {
-                    return Rx.Observable.empty();
+                    return Observable_1.Observable.empty();
                 };
                 Store.prototype.getPath = function () {
                     var _this = this;
@@ -357,7 +357,7 @@ System.register("j/base/store", ["@angular/core", "j/core/r", "rxjs/Rx", "@angul
                         return this.cfg.pStore.getPath().map(function (x) { return x + _this.cfg.path; });
                     }
                     else {
-                        return Rx.Observable.of(this.cfg.path);
+                        return Observable_1.Observable.of(this.cfg.path);
                     }
                 };
                 Object.defineProperty(Store.prototype, "pStore", {
@@ -470,7 +470,7 @@ System.register("j/base/store", ["@angular/core", "j/core/r", "rxjs/Rx", "@angul
                 JViewStore.prototype.getMid = function () {
                     var _this = this;
                     if (this.m.Id)
-                        return Rx.Observable.of(this.m.Id);
+                        return Observable_1.Observable.of(this.m.Id);
                     return this.refreshOb().map(function (x) { return _this.m.Id; });
                 };
                 JViewStore.prototype.refreshOb = function () {
@@ -488,7 +488,7 @@ System.register("j/base/store", ["@angular/core", "j/core/r", "rxjs/Rx", "@angul
                     this.id = id;
                     if (refresh)
                         return this.refreshOb();
-                    return Rx.Observable.empty();
+                    return Observable_1.Observable.empty();
                 };
                 JViewStore.prototype.show = function (id, refresh) {
                     if (refresh === void 0) { refresh = true; }
@@ -634,7 +634,7 @@ System.register("j/base/store", ["@angular/core", "j/core/r", "rxjs/Rx", "@angul
 System.register("j/base/zd", ['@angular/core', "j/core/r", 'rxjs/Observable'], function(exports_7, context_7) {
     "use strict";
     var __moduleName = context_7 && context_7.id;
-    var core_5, r_3, Observable_1;
+    var core_5, r_3, Observable_2;
     var JZd;
     return {
         setters:[
@@ -644,8 +644,8 @@ System.register("j/base/zd", ['@angular/core', "j/core/r", 'rxjs/Observable'], f
             function (r_3_1) {
                 r_3 = r_3_1;
             },
-            function (Observable_1_1) {
-                Observable_1 = Observable_1_1;
+            function (Observable_2_1) {
+                Observable_2 = Observable_2_1;
             }],
         execute: function() {
             JZd = (function () {
@@ -657,7 +657,7 @@ System.register("j/base/zd", ['@angular/core', "j/core/r", 'rxjs/Observable'], f
                 }
                 JZd.prototype.get = function (bq) {
                     var _this = this;
-                    return new Observable_1.Observable(function (observer) {
+                    return new Observable_2.Observable(function (observer) {
                         var data = _this.zdMap.get(bq);
                         if (data) {
                             observer.next(data);
@@ -730,10 +730,10 @@ System.register("j/base", ["j/base/auth", "j/base/store", "j/base/zd"], function
         }
     }
 });
-System.register("j/core/res", ['@angular/core', '@angular/http', "j/core/r", "rxjs/Rx"], function(exports_9, context_9) {
+System.register("j/core/res", ['@angular/core', '@angular/http', "j/core/r", "rxjs/Observable"], function(exports_9, context_9) {
     "use strict";
     var __moduleName = context_9 && context_9.id;
-    var core_6, http_3, r_4, Rx;
+    var core_6, http_3, r_4, Observable_3;
     var Res, ViewRes, EditRes, SubRes, WfRes, ListRes, PageRes, JRes;
     return {
         setters:[
@@ -746,8 +746,8 @@ System.register("j/core/res", ['@angular/core', '@angular/http', "j/core/r", "rx
             function (r_4_1) {
                 r_4 = r_4_1;
             },
-            function (Rx_2) {
-                Rx = Rx_2;
+            function (Observable_3_1) {
+                Observable_3 = Observable_3_1;
             }],
         execute: function() {
             Res = (function () {
@@ -766,7 +766,7 @@ System.register("j/core/res", ['@angular/core', '@angular/http', "j/core/r", "rx
                     this.refreshOb().subscribe();
                 };
                 Res.prototype.refreshOb = function () {
-                    return Rx.Observable.empty();
+                    return Observable_3.Observable.empty();
                 };
                 Res.prototype.getPath = function () {
                     var _this = this;
@@ -774,7 +774,7 @@ System.register("j/core/res", ['@angular/core', '@angular/http', "j/core/r", "rx
                         return this.cfg.pRes.getPath().map(function (x) { return x + _this.cfg.path; });
                     }
                     else {
-                        return Rx.Observable.of(this.cfg.path);
+                        return Observable_3.Observable.of(this.cfg.path);
                     }
                 };
                 Object.defineProperty(Res.prototype, "pRes", {
@@ -812,7 +812,7 @@ System.register("j/core/res", ['@angular/core', '@angular/http', "j/core/r", "rx
                     get: function () {
                         var _this = this;
                         if (this.m.Id)
-                            return Rx.Observable.of(this.m.Id);
+                            return Observable_3.Observable.of(this.m.Id);
                         return this.refreshOb().map(function (x) { return _this.m.Id; });
                     },
                     enumerable: true,
@@ -833,7 +833,7 @@ System.register("j/core/res", ['@angular/core', '@angular/http', "j/core/r", "rx
                     this.id = id;
                     if (refresh)
                         return this.refreshOb();
-                    return Rx.Observable.empty();
+                    return Observable_3.Observable.empty();
                 };
                 ViewRes.prototype.show = function (id, refresh) {
                     if (refresh === void 0) { refresh = true; }

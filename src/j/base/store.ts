@@ -1,7 +1,6 @@
 import {Injectable,EventEmitter} from "@angular/core";
 import {R} from "../core/r";
 import {Observable} from "rxjs/Observable";
-import * as Rx from "rxjs/Rx";
 import {JFilterCfg} from "../core/filter";
 import {Headers} from "@angular/http";
 
@@ -53,16 +52,16 @@ export class Store implements IStore{
         this.refreshOb().subscribe();
     }
     refreshOb() :Observable<any>{
-        return Rx.Observable.empty();
+        return Observable.empty();
     }
     getMid() :Observable<any>{
-        return Rx.Observable.empty();
+        return Observable.empty();
     }
     getPath():Observable<string> {
         if (this.cfg.useParentPath && this.cfg.pStore ) {
             return this.cfg.pStore.getPath().map(x=> x + this.cfg.path)
         } else {
-            return Rx.Observable.of(this.cfg.path);
+            return Observable.of(this.cfg.path);
         }
     }
     get pStore(){return this.cfg.pStore;}
@@ -160,7 +159,7 @@ export class JViewStore extends Store{
     }
 
     getMid():Observable<string>{
-        if (this.m.Id) return Rx.Observable.of(this.m.Id);
+        if (this.m.Id) return Observable.of(this.m.Id);
         return this.refreshOb().map(x=> this.m.Id);
     }
 
@@ -175,7 +174,7 @@ export class JViewStore extends Store{
     showOb(id:string, refresh:boolean = true) :Observable<any> {
         this.id = id;
         if (refresh) return this.refreshOb();
-        return Rx.Observable.empty();
+        return Observable.empty();
     }
     show(id:string, refresh:boolean = true){
         this.showOb(id,refresh).subscribe();

@@ -15,7 +15,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var r_1 = require("../core/r");
-var Rx = require("rxjs/Rx");
+var Observable_1 = require("rxjs/Observable");
 var http_1 = require("@angular/http");
 var Store = (function () {
     function Store(r, cfg) {
@@ -33,10 +33,10 @@ var Store = (function () {
         this.refreshOb().subscribe();
     };
     Store.prototype.refreshOb = function () {
-        return Rx.Observable.empty();
+        return Observable_1.Observable.empty();
     };
     Store.prototype.getMid = function () {
-        return Rx.Observable.empty();
+        return Observable_1.Observable.empty();
     };
     Store.prototype.getPath = function () {
         var _this = this;
@@ -44,7 +44,7 @@ var Store = (function () {
             return this.cfg.pStore.getPath().map(function (x) { return x + _this.cfg.path; });
         }
         else {
-            return Rx.Observable.of(this.cfg.path);
+            return Observable_1.Observable.of(this.cfg.path);
         }
     };
     Object.defineProperty(Store.prototype, "pStore", {
@@ -157,7 +157,7 @@ var JViewStore = (function (_super) {
     JViewStore.prototype.getMid = function () {
         var _this = this;
         if (this.m.Id)
-            return Rx.Observable.of(this.m.Id);
+            return Observable_1.Observable.of(this.m.Id);
         return this.refreshOb().map(function (x) { return _this.m.Id; });
     };
     JViewStore.prototype.refreshOb = function () {
@@ -175,7 +175,7 @@ var JViewStore = (function (_super) {
         this.id = id;
         if (refresh)
             return this.refreshOb();
-        return Rx.Observable.empty();
+        return Observable_1.Observable.empty();
     };
     JViewStore.prototype.show = function (id, refresh) {
         if (refresh === void 0) { refresh = true; }

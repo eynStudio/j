@@ -3,7 +3,6 @@ import {Headers} from '@angular/http';
 import {R} from './r';
 import {JFilterCfg} from "./filter";
 import {Observable} from "rxjs/Observable";
-import * as Rx from "rxjs/Rx";
 
 export interface ResCfg{
     path:string;
@@ -40,13 +39,13 @@ export class Res implements IRes {
         this.refreshOb().subscribe();
     }
     refreshOb() :Observable<any>{
-        return Rx.Observable.empty();
+        return Observable.empty();
     }
     getPath():Observable<string> {
         if (this.cfg.pRes && this.cfg.useParentPath) {
             return this.cfg.pRes.getPath().map(x=> x + this.cfg.path)
         } else {
-            return Rx.Observable.of(this.cfg.path);
+            return Observable.of(this.cfg.path);
         }
     }
     get pRes(){return this.cfg.pRes;}
@@ -72,7 +71,7 @@ export class ViewRes extends Res {
     }
 
     get mid():Observable<string>{
-        if (this.m.Id) return Rx.Observable.of(this.m.Id);
+        if (this.m.Id) return Observable.of(this.m.Id);
         return this.refreshOb().map(x=> this.m.Id);
     }
 
@@ -87,7 +86,7 @@ export class ViewRes extends Res {
     showOb(id:string, refresh:boolean = true) :Observable<any> {
         this.id = id;
         if (refresh) return this.refreshOb();
-        return Rx.Observable.empty();
+        return Observable.empty();
     }
     show(id:string, refresh:boolean = true){
         this.showOb(id,refresh).subscribe();
