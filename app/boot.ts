@@ -7,6 +7,7 @@ import {JLocalStorage} from "j/core/localstorage"
 import {R} from 'j/core/r'
 import {JRes} from 'j/core/res'
 import { App } from './app';
+import 'rxjs/Rx';
 
 var universalInjectables = [
     ROUTER_PROVIDERS,
