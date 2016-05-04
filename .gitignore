@@ -3,3 +3,4 @@
 npm-debug.log
 /typings
 /app/**/*.js
+!/app/systemjs.config.js
