@@ -1170,35 +1170,42 @@ System.register("j/fw/setting", ['@angular/core'], function(exports_13, context_
             }],
         execute: function() {
             JFwSetting = (function () {
-                function JFwSetting(dcl, elemRef) {
-                    this.dcl = dcl;
-                    this.elemRef = elemRef;
+                function JFwSetting(cmpResolver) {
+                    this.cmpResolver = cmpResolver;
                 }
                 JFwSetting.prototype.showSetting = function (type, toggle) {
                     var _this = this;
                     if (toggle === void 0) { toggle = true; }
                     if (this.curType == type) {
-                        if (toggle)
+                        if (toggle) {
                             this.closeCurComp();
+                        }
                         return;
                     }
-                    else if (this.curType != null)
+                    else if (this.curType != null) {
                         this.closeCurComp();
+                    }
                     this.curType = type;
-                    this.dcl.loadIntoLocation(type, this.elemRef, 'child').then(function (x) { return _this.curComp = x; });
+                    this.cmpResolver.resolveComponent(type)
+                        .then(function (factory) {
+                        _this.curComp = _this.viewContainer.createComponent(factory, 0, _this.viewContainer.injector);
+                    });
                 };
                 JFwSetting.prototype.closeCurComp = function () {
                     this.curType = null;
-                    if (this.curComp)
-                        this.curComp.dispose();
+                    this.viewContainer.clear();
                 };
+                __decorate([
+                    core_9.ViewChild('container', { read: core_9.ViewContainerRef }), 
+                    __metadata('design:type', core_9.ViewContainerRef)
+                ], JFwSetting.prototype, "viewContainer", void 0);
                 JFwSetting = __decorate([
                     core_9.Component({
                         selector: 'j-fw-setting',
-                        template: "<div #child></div>",
+                        template: "<div #container></div>",
                         directives: [],
                     }), 
-                    __metadata('design:paramtypes', [core_9.DynamicComponentLoader, core_9.ElementRef])
+                    __metadata('design:paramtypes', [core_9.ComponentResolver])
                 ], JFwSetting);
                 return JFwSetting;
             }());
@@ -1315,7 +1322,7 @@ System.register("j/ui/page/page", ['@angular/core', '@angular/common'], function
                 lastText: '>|',
                 rotate: true
             };
-            PAGINATION_TEMPLATE = "\n  <ul class=\"pagination\" [ngClass]=\"classMap\">\n    <li class=\"pagination-first page-item\"\n        *ngIf=\"boundaryLinks\"\n        [class.disabled]=\"noPrevious()||disabled\">\n      <a class=\"page-link\" href (click)=\"selectPage(1, $event)\">{{getText('first')}}</a>\n    </li>\n    <li class=\"pagination-prev page-item\"\n        *ngIf=\"directionLinks\"\n        [class.disabled]=\"noPrevious()||disabled\">\n      <a class=\"page-link\" href (click)=\"selectPage(page - 1, $event)\">{{getText('previous')}}</a>\n      </li>\n    <li *ngFor=\"#pg of pages\"\n        [class.active]=\"pg.active\"\n        [class.disabled]=\"disabled&&!pg.active\"\n        class=\"pagination-page page-item\">\n      <a class=\"page-link\" href (click)=\"selectPage(pg.number, $event)\">{{pg.text}}</a>\n    </li>\n    <li class=\"pagination-next page-item\"\n        *ngIf=\"directionLinks\"\n        [class.disabled]=\"noNext()\">\n      <a class=\"page-link\" href (click)=\"selectPage(page + 1, $event)\">{{getText('next')}}</a></li>\n    <li class=\"pagination-last page-item\"\n        *ngIf=\"boundaryLinks\"\n        [class.disabled]=\"noNext()\">\n      <a class=\"page-link\" href (click)=\"selectPage(totalPages, $event)\">{{getText('last')}}</a></li>\n  </ul>\n  ";
+            PAGINATION_TEMPLATE = "\n  <ul class=\"pagination\" [ngClass]=\"classMap\">\n    <li class=\"pagination-first page-item\"\n        *ngIf=\"boundaryLinks\"\n        [class.disabled]=\"noPrevious()||disabled\">\n      <a class=\"page-link\" href (click)=\"selectPage(1, $event)\">{{getText('first')}}</a>\n    </li>\n    <li class=\"pagination-prev page-item\"\n        *ngIf=\"directionLinks\"\n        [class.disabled]=\"noPrevious()||disabled\">\n      <a class=\"page-link\" href (click)=\"selectPage(page - 1, $event)\">{{getText('previous')}}</a>\n      </li>\n    <li *ngFor=\"let pg of pages\"\n        [class.active]=\"pg.active\"\n        [class.disabled]=\"disabled&&!pg.active\"\n        class=\"pagination-page page-item\">\n      <a class=\"page-link\" href (click)=\"selectPage(pg.number, $event)\">{{pg.text}}</a>\n    </li>\n    <li class=\"pagination-next page-item\"\n        *ngIf=\"directionLinks\"\n        [class.disabled]=\"noNext()\">\n      <a class=\"page-link\" href (click)=\"selectPage(page + 1, $event)\">{{getText('next')}}</a></li>\n    <li class=\"pagination-last page-item\"\n        *ngIf=\"boundaryLinks\"\n        [class.disabled]=\"noNext()\">\n      <a class=\"page-link\" href (click)=\"selectPage(totalPages, $event)\">{{getText('last')}}</a></li>\n  </ul>\n  ";
             Pagination = (function () {
                 function Pagination(cd, renderer, elementRef) {
                     this.cd = cd;
@@ -1623,7 +1630,7 @@ System.register("j/fw/bld", ["@angular/core", "j/ui/page/page", "@angular/common
                     core_13.Component({
                         selector: 'j-fw-bld',
                         directives: [common_3.NgFor, common_3.NgIf, page_1.PAGINATION_DIRECTIVES],
-                        template: "<div class=\"card-header\">\n    <i class=\"fa\" [ngClass]=\"cfg.icon||'fa-list-alt'\"></i>  {{cfg.title}}<code *ngIf=\"cfg.type=='page'\">{{ctx.total}}</code>\n</div>\n<div class=\"card-block j-bld-toolbar\">\n    <div class=\"btn-group btn-group-sm\" role=\"group\">\n        <button type=\"button\" class=\"btn \" [ngClass]=\"b.clazz||'btn-secondary'\" *ngFor=\"#b of cfg.tools\" (click)=\"b.exec && b.exec()\"><i class=\"fa\" [ngClass]=\"b.icon||'fa-tasks'\"></i> {{b.title}}</button>\n    </div>\n    <div class=\"btn-group btn-group-sm pull-right j-bld-opts\" role=\"group\">\n        <button type=\"button\" class=\"btn btn-link\"  *ngIf=\"cfg.search\" (click)=\"showSearch=!showSearch\"><i class=\"fa fa-search\"></i></button>\n        <button type=\"button\" class=\"btn btn-link\"  *ngIf=\"cfg.filter\" (click)=\"cfg.filter.exec()\"><i class=\"fa fa-filter\"></i></button>\n        <button type=\"button\" class=\"btn btn-link\" *ngFor=\"#b of cfg.opts\" (click)=\"b.exec && b.exec()\"><i class=\"fa\" [ngClass]=\"b.icon||'fa-tasks'\"></i> {{b.title}}</button>\n    </div>\n</div>\n<div class=\"j-bld-search\" *ngIf=\"showSearch\">\n    <div class=\"input-group input-group-sm\">\n        <input type=\"text\" class=\"form-control\" [attr.placeholder]=\"cfg.search.msg\" [(ngModel)]=\"cfg.ctx.filter.ext.search\">\n        <span class=\"input-group-addon\" (click)=\"cfg.ctx.refresh()\">\u67E5\u627E</span>\n    </div>\n</div>\n<div class=\"j-bld-body\" [ngClass]=\"{'j-wi-search':showSearch,'j-wi-footer':showFooter}\">\n<ng-content></ng-content>\n</div>\n<div class=\"card-footer\" *ngIf=\"showFooter\">\n    <pagination *ngIf=\"cfg.ctx?.pager\" class=\"pagination-sm pull-sm-right\" [boundaryLinks]=\"true\" [totalItems]=\"cfg.ctx.total\" [maxSize]=\"6\"\n                [itemsPerPage]=\"cfg.ctx.filter.ext.perPage\" [(ngModel)]=\"cfg.ctx.filter.ext.page\" (pageChanged)=\"cfg.ctx.pager($event)\"></pagination>\n</div>"
+                        template: "<div class=\"card-header\">\n    <i class=\"fa\" [ngClass]=\"cfg.icon||'fa-list-alt'\"></i>  {{cfg.title}}<code *ngIf=\"cfg.type=='page'\">{{ctx.total}}</code>\n</div>\n<div class=\"card-block j-bld-toolbar\">\n    <div class=\"btn-group btn-group-sm\" role=\"group\">\n        <button type=\"button\" class=\"btn \" [ngClass]=\"b.clazz||'btn-secondary'\" *ngFor=\"let b of cfg.tools\" (click)=\"b.exec && b.exec()\"><i class=\"fa\" [ngClass]=\"b.icon||'fa-tasks'\"></i> {{b.title}}</button>\n    </div>\n    <div class=\"btn-group btn-group-sm pull-right j-bld-opts\" role=\"group\">\n        <button type=\"button\" class=\"btn btn-link\"  *ngIf=\"cfg.search\" (click)=\"showSearch=!showSearch\"><i class=\"fa fa-search\"></i></button>\n        <button type=\"button\" class=\"btn btn-link\"  *ngIf=\"cfg.filter\" (click)=\"cfg.filter.exec()\"><i class=\"fa fa-filter\"></i></button>\n        <button type=\"button\" class=\"btn btn-link\" *ngFor=\"let b of cfg.opts\" (click)=\"b.exec && b.exec()\"><i class=\"fa\" [ngClass]=\"b.icon||'fa-tasks'\"></i> {{b.title}}</button>\n    </div>\n</div>\n<div class=\"j-bld-search\" *ngIf=\"showSearch\">\n    <div class=\"input-group input-group-sm\">\n        <input type=\"text\" class=\"form-control\" [attr.placeholder]=\"cfg.search.msg\" [(ngModel)]=\"cfg.ctx.filter.ext.search\">\n        <span class=\"input-group-addon\" (click)=\"cfg.ctx.refresh()\">\u67E5\u627E</span>\n    </div>\n</div>\n<div class=\"j-bld-body\" [ngClass]=\"{'j-wi-search':showSearch,'j-wi-footer':showFooter}\">\n<ng-content></ng-content>\n</div>\n<div class=\"card-footer\" *ngIf=\"showFooter\">\n    <pagination *ngIf=\"cfg.ctx?.pager\" class=\"pagination-sm pull-sm-right\" [boundaryLinks]=\"true\" [totalItems]=\"cfg.ctx.total\" [maxSize]=\"6\"\n                [itemsPerPage]=\"cfg.ctx.filter.ext.perPage\" [(ngModel)]=\"cfg.ctx.filter.ext.page\" (pageChanged)=\"cfg.ctx.pager($event)\"></pagination>\n</div>"
                     }), 
                     __metadata('design:paramtypes', [])
                 ], JFwBld);
@@ -1732,7 +1739,11 @@ System.register("j/pipe/filter", ['@angular/core'], function(exports_19, context
             JFilterPipe = (function () {
                 function JFilterPipe() {
                 }
-                JFilterPipe.prototype.transform = function (value, args) {
+                JFilterPipe.prototype.transform = function (value) {
+                    var args = [];
+                    for (var _i = 1; _i < arguments.length; _i++) {
+                        args[_i - 1] = arguments[_i];
+                    }
                     var filter = args[0];
                     if (filter && Array.isArray(value)) {
                         var filterKeys_1 = Object.keys(filter);

@@ -2,7 +2,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({ name:'jFilter'})
 export class JFilterPipe implements PipeTransform {
-    transform(value: any, args: string[]): any {
+    transform(value: any, ...args: string[]): any {
         let filter = args[0];
 
         if (filter && Array.isArray(value)) {

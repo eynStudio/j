@@ -10,35 +10,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var JFwSetting = (function () {
-    function JFwSetting(dcl, elemRef) {
-        this.dcl = dcl;
-        this.elemRef = elemRef;
+    function JFwSetting(cmpResolver) {
+        this.cmpResolver = cmpResolver;
     }
     JFwSetting.prototype.showSetting = function (type, toggle) {
         var _this = this;
         if (toggle === void 0) { toggle = true; }
         if (this.curType == type) {
-            if (toggle)
+            if (toggle) {
                 this.closeCurComp();
+            }
             return;
         }
-        else if (this.curType != null)
+        else if (this.curType != null) {
             this.closeCurComp();
+        }
         this.curType = type;
-        this.dcl.loadIntoLocation(type, this.elemRef, 'child').then(function (x) { return _this.curComp = x; });
+        this.cmpResolver.resolveComponent(type)
+            .then(function (factory) {
+            _this.curComp = _this.viewContainer.createComponent(factory, 0, _this.viewContainer.injector);
+        });
     };
     JFwSetting.prototype.closeCurComp = function () {
         this.curType = null;
-        if (this.curComp)
-            this.curComp.dispose();
+        this.viewContainer.clear();
     };
+    __decorate([
+        core_1.ViewChild('container', { read: core_1.ViewContainerRef }), 
+        __metadata('design:type', core_1.ViewContainerRef)
+    ], JFwSetting.prototype, "viewContainer", void 0);
     JFwSetting = __decorate([
         core_1.Component({
             selector: 'j-fw-setting',
-            template: "<div #child></div>",
+            template: "<div #container></div>",
             directives: [],
         }), 
-        __metadata('design:paramtypes', [core_1.DynamicComponentLoader, core_1.ElementRef])
+        __metadata('design:paramtypes', [core_1.ComponentResolver])
     ], JFwSetting);
     return JFwSetting;
 }());

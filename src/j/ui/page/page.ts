@@ -53,7 +53,7 @@ const PAGINATION_TEMPLATE = `
         [class.disabled]="noPrevious()||disabled">
       <a class="page-link" href (click)="selectPage(page - 1, $event)">{{getText('previous')}}</a>
       </li>
-    <li *ngFor="#pg of pages"
+    <li *ngFor="let pg of pages"
         [class.active]="pg.active"
         [class.disabled]="disabled&&!pg.active"
         class="pagination-page page-item">

@@ -12,7 +12,11 @@ var core_1 = require('@angular/core');
 var JFilterPipe = (function () {
     function JFilterPipe() {
     }
-    JFilterPipe.prototype.transform = function (value, args) {
+    JFilterPipe.prototype.transform = function (value) {
+        var args = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
+        }
         var filter = args[0];
         if (filter && Array.isArray(value)) {
             var filterKeys_1 = Object.keys(filter);

@@ -54,12 +54,12 @@ export interface JBldCfg{
 </div>
 <div class="card-block j-bld-toolbar">
     <div class="btn-group btn-group-sm" role="group">
-        <button type="button" class="btn " [ngClass]="b.clazz||'btn-secondary'" *ngFor="#b of cfg.tools" (click)="b.exec && b.exec()"><i class="fa" [ngClass]="b.icon||'fa-tasks'"></i> {{b.title}}</button>
+        <button type="button" class="btn " [ngClass]="b.clazz||'btn-secondary'" *ngFor="let b of cfg.tools" (click)="b.exec && b.exec()"><i class="fa" [ngClass]="b.icon||'fa-tasks'"></i> {{b.title}}</button>
     </div>
     <div class="btn-group btn-group-sm pull-right j-bld-opts" role="group">
         <button type="button" class="btn btn-link"  *ngIf="cfg.search" (click)="showSearch=!showSearch"><i class="fa fa-search"></i></button>
         <button type="button" class="btn btn-link"  *ngIf="cfg.filter" (click)="cfg.filter.exec()"><i class="fa fa-filter"></i></button>
-        <button type="button" class="btn btn-link" *ngFor="#b of cfg.opts" (click)="b.exec && b.exec()"><i class="fa" [ngClass]="b.icon||'fa-tasks'"></i> {{b.title}}</button>
+        <button type="button" class="btn btn-link" *ngFor="let b of cfg.opts" (click)="b.exec && b.exec()"><i class="fa" [ngClass]="b.icon||'fa-tasks'"></i> {{b.title}}</button>
     </div>
 </div>
 <div class="j-bld-search" *ngIf="showSearch">

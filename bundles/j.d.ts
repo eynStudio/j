@@ -343,13 +343,13 @@ declare module "j/fw/top" {
     }
 }
 declare module "j/fw/setting" {
-    import { ElementRef, DynamicComponentLoader, ComponentRef, Type } from '@angular/core';
+    import { ComponentRef, Type, ComponentResolver, ViewContainerRef } from '@angular/core';
     export class JFwSetting {
-        private dcl;
-        private elemRef;
+        private cmpResolver;
+        viewContainer: ViewContainerRef;
         curComp: ComponentRef;
         curType: Type;
-        constructor(dcl: DynamicComponentLoader, elemRef: ElementRef);
+        constructor(cmpResolver: ComponentResolver);
         showSetting(type: Type, toggle?: boolean): void;
         closeCurComp(): void;
     }
@@ -504,7 +504,7 @@ declare module "j/fw" {
 declare module "j/pipe/filter" {
     import { PipeTransform } from '@angular/core';
     export class JFilterPipe implements PipeTransform {
-        transform(value: any, args: string[]): any;
+        transform(value: any, ...args: string[]): any;
     }
 }
 declare module "j/pipe" {

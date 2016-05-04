@@ -1,10 +1,10 @@
-import { ElementRef, DynamicComponentLoader, ComponentRef, Type } from '@angular/core';
+import { ComponentRef, Type, ComponentResolver, ViewContainerRef } from '@angular/core';
 export declare class JFwSetting {
-    private dcl;
-    private elemRef;
+    private cmpResolver;
+    viewContainer: ViewContainerRef;
     curComp: ComponentRef;
     curType: Type;
-    constructor(dcl: DynamicComponentLoader, elemRef: ElementRef);
+    constructor(cmpResolver: ComponentResolver);
     showSetting(type: Type, toggle?: boolean): void;
     closeCurComp(): void;
 }
