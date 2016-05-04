@@ -507,8 +507,28 @@ declare module "j/pipe/filter" {
         transform(value: any, ...args: string[]): any;
     }
 }
+declare module "j/pipe/zd" {
+    import { PipeTransform } from '@angular/core';
+    import { JZd } from "j/base/zd";
+    export class JZdPipe implements PipeTransform {
+        private zd;
+        private mc;
+        constructor(zd: JZd);
+        transform(value: string, ...args: any[]): string;
+    }
+    export class JZdXzqhPipe implements PipeTransform {
+        private zd;
+        private mc;
+        private mc1;
+        private mc2;
+        private mc3;
+        constructor(zd: JZd);
+        transform(value: string, ...args: any[]): string;
+    }
+}
 declare module "j/pipe" {
     export * from "j/pipe/filter";
+    export * from "j/pipe/zd";
 }
 declare module "j/utils/dom" {
     export function getDimensions(ele: HTMLElement, id: string): {
@@ -591,12 +611,27 @@ declare module "j/ui/uploader/select" {
         onFiles(): void;
     }
 }
+declare module "j/ui/zd/zd" {
+    import { EventEmitter } from '@angular/core';
+    import { JZd } from "j/base/zd";
+    export class JUiZd {
+        private zd;
+        dmChange: EventEmitter<any>;
+        dm: string;
+        bq: string;
+        jc: boolean;
+        items: Array<any>;
+        constructor(zd: JZd);
+        ngOnInit(): void;
+    }
+}
 declare module "j/ui" {
     export * from "j/ui/jui";
     export * from "j/ui/page/page";
     export * from "j/ui/nav/nav-tree";
     export * from "j/ui/uploader/uploader";
     export * from "j/ui/uploader/select";
+    export * from "j/ui/zd/zd";
 }
 declare module "j/utils" {
     export * from "j/utils/dom";

@@ -23,7 +23,7 @@ var JZd = (function () {
         return new Observable_1.Observable(function (observer) {
             var data = _this.zdMap.get(bq);
             if (data) {
-                observer.next(data);
+                data.forEach(function (x) { return observer.next(x); });
                 observer.complete();
             }
             else {
@@ -49,7 +49,7 @@ var JZd = (function () {
                         }).toJS();
                         _this.zdMap = _this.zdMap.set(bq, sorted);
                         _this.loadingMap.get(bq).forEach(function (x) {
-                            x.next(sorted);
+                            sorted.forEach(function (d) { return x.next(d); });
                             x.complete();
                         });
                         _this.loadingMap.remove(bq);

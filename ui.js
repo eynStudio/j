@@ -7,3 +7,4 @@ __export(require("./ui/page/page"));
 __export(require("./ui/nav/nav-tree"));
 __export(require("./ui/uploader/uploader"));
 __export(require("./ui/uploader/select"));
+__export(require("./ui/zd/zd"));

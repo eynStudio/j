@@ -14,7 +14,7 @@ export class JZd {
         return new Observable(observer => {
             let data = this.zdMap.get(bq);
             if (data) {
-                observer.next(data);
+                data.forEach(x=> observer.next(x));
                 observer.complete();
             } else {
                 if (this.loadingMap.has(bq)) {
@@ -33,7 +33,7 @@ export class JZd {
                         }).toJS();
                         this.zdMap = this.zdMap.set(bq, sorted);
                         this.loadingMap.get(bq).forEach(x=> {
-                            x.next(sorted);
+                            sorted.forEach(d=>x.next(d));
                             x.complete();
                         });
                         this.loadingMap.remove(bq);

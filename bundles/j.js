@@ -660,7 +660,7 @@ System.register("j/base/zd", ['@angular/core', "j/core/r", 'rxjs/Observable'], f
                     return new Observable_2.Observable(function (observer) {
                         var data = _this.zdMap.get(bq);
                         if (data) {
-                            observer.next(data);
+                            data.forEach(function (x) { return observer.next(x); });
                             observer.complete();
                         }
                         else {
@@ -686,7 +686,7 @@ System.register("j/base/zd", ['@angular/core', "j/core/r", 'rxjs/Observable'], f
                                     }).toJS();
                                     _this.zdMap = _this.zdMap.set(bq, sorted);
                                     _this.loadingMap.get(bq).forEach(function (x) {
-                                        x.next(sorted);
+                                        sorted.forEach(function (d) { return x.next(d); });
                                         x.complete();
                                     });
                                     _this.loadingMap.remove(bq);
@@ -1765,28 +1765,119 @@ System.register("j/pipe/filter", ['@angular/core'], function(exports_19, context
         }
     }
 });
-System.register("j/pipe", ["j/pipe/filter"], function(exports_20, context_20) {
+System.register("j/pipe/zd", ['@angular/core', "j/base/zd"], function(exports_20, context_20) {
     "use strict";
     var __moduleName = context_20 && context_20.id;
+    var core_15, zd_2;
+    var JZdPipe, JZdXzqhPipe;
+    return {
+        setters:[
+            function (core_15_1) {
+                core_15 = core_15_1;
+            },
+            function (zd_2_1) {
+                zd_2 = zd_2_1;
+            }],
+        execute: function() {
+            JZdPipe = (function () {
+                function JZdPipe(zd) {
+                    this.zd = zd;
+                    this.mc = '(--)';
+                }
+                JZdPipe.prototype.transform = function (value) {
+                    var _this = this;
+                    var args = [];
+                    for (var _i = 1; _i < arguments.length; _i++) {
+                        args[_i - 1] = arguments[_i];
+                    }
+                    if (value && args[0]) {
+                        this.zd.get(args[0]).first(function (x) { return x.Dm == value; }).subscribe(function (x) { return _this.mc = args[1] ? x.Jc : x.Mc; }, function (x) { return x; });
+                    }
+                    return this.mc;
+                };
+                JZdPipe = __decorate([
+                    core_15.Pipe({ name: 'jZd', pure: false }), 
+                    __metadata('design:paramtypes', [zd_2.JZd])
+                ], JZdPipe);
+                return JZdPipe;
+            }());
+            exports_20("JZdPipe", JZdPipe);
+            JZdXzqhPipe = (function () {
+                function JZdXzqhPipe(zd) {
+                    this.zd = zd;
+                    this.mc = '';
+                    this.mc1 = "";
+                    this.mc2 = "";
+                    this.mc3 = "";
+                }
+                JZdXzqhPipe.prototype.transform = function (value) {
+                    var _this = this;
+                    var args = [];
+                    for (var _i = 1; _i < arguments.length; _i++) {
+                        args[_i - 1] = arguments[_i];
+                    }
+                    if (value && value.length == 6) {
+                        var dm1_1 = value.substr(0, 2) + '0000';
+                        var dm2_1 = value.substr(0, 4) + '00';
+                        var lv_1 = 3;
+                        if (value.substr(2, 4) == '0000')
+                            lv_1 = 1;
+                        else if (value.substr(4, 2) == '00')
+                            lv_1 = 2;
+                        this.zd.get('gb.xzqh').map(function (data) {
+                            if (data.Dm == dm1_1)
+                                _this.mc1 = data.Mc;
+                            else if (data.Dm == dm2_1)
+                                _this.mc2 = data.Mc;
+                            else if (data.Dm == value)
+                                _this.mc3 = data.Mc;
+                            return data;
+                        }).subscribe(function (x) {
+                            if (lv_1 == 1)
+                                _this.mc = _this.mc1;
+                            else if (lv_1 == 2)
+                                _this.mc = _this.mc1 + _this.mc2;
+                            else
+                                _this.mc = _this.mc1 + _this.mc2 + _this.mc3;
+                        }, function (x) { return x; });
+                    }
+                    return this.mc;
+                };
+                JZdXzqhPipe = __decorate([
+                    core_15.Pipe({ name: 'jZdXzqh', pure: false }), 
+                    __metadata('design:paramtypes', [zd_2.JZd])
+                ], JZdXzqhPipe);
+                return JZdXzqhPipe;
+            }());
+            exports_20("JZdXzqhPipe", JZdXzqhPipe);
+        }
+    }
+});
+System.register("j/pipe", ["j/pipe/filter", "j/pipe/zd"], function(exports_21, context_21) {
+    "use strict";
+    var __moduleName = context_21 && context_21.id;
     function exportStar_4(m) {
         var exports = {};
         for(var n in m) {
             if (n !== "default") exports[n] = m[n];
         }
-        exports_20(exports);
+        exports_21(exports);
     }
     return {
         setters:[
             function (filter_2_1) {
                 exportStar_4(filter_2_1);
+            },
+            function (zd_3_1) {
+                exportStar_4(zd_3_1);
             }],
         execute: function() {
         }
     }
 });
-System.register("j/utils/dom", [], function(exports_21, context_21) {
+System.register("j/utils/dom", [], function(exports_22, context_22) {
     "use strict";
-    var __moduleName = context_21 && context_21.id;
+    var __moduleName = context_22 && context_22.id;
     var dimensionCache;
     function getDimensions(ele, id) {
         var dimensions = dimensionCache[id];
@@ -1805,15 +1896,15 @@ System.register("j/utils/dom", [], function(exports_21, context_21) {
         }
         return dimensions;
     }
-    exports_21("getDimensions", getDimensions);
+    exports_22("getDimensions", getDimensions);
     function flushDimensionCache() {
         dimensionCache = {};
     }
-    exports_21("flushDimensionCache", flushDimensionCache);
+    exports_22("flushDimensionCache", flushDimensionCache);
     function clearDimensions(id) {
         delete dimensionCache[id];
     }
-    exports_21("clearDimensions", clearDimensions);
+    exports_22("clearDimensions", clearDimensions);
     return {
         setters:[],
         execute: function() {
@@ -1821,9 +1912,9 @@ System.register("j/utils/dom", [], function(exports_21, context_21) {
         }
     }
 });
-System.register("j/ui/jui", ["j/utils/dom"], function(exports_22, context_22) {
+System.register("j/ui/jui", ["j/utils/dom"], function(exports_23, context_23) {
     "use strict";
-    var __moduleName = context_22 && context_22.id;
+    var __moduleName = context_23 && context_23.id;
     var dom;
     var _uid, Jui;
     return {
@@ -1858,19 +1949,19 @@ System.register("j/ui/jui", ["j/utils/dom"], function(exports_22, context_22) {
                 };
                 return Jui;
             }());
-            exports_22("Jui", Jui);
+            exports_23("Jui", Jui);
         }
     }
 });
-System.register("j/ui/nav/nav-tree", ['@angular/core', '@angular/router-deprecated'], function(exports_23, context_23) {
+System.register("j/ui/nav/nav-tree", ['@angular/core', '@angular/router-deprecated'], function(exports_24, context_24) {
     "use strict";
-    var __moduleName = context_23 && context_23.id;
-    var core_15, router_deprecated_5;
+    var __moduleName = context_24 && context_24.id;
+    var core_16, router_deprecated_5;
     var NavTree;
     return {
         setters:[
-            function (core_15_1) {
-                core_15 = core_15_1;
+            function (core_16_1) {
+                core_16 = core_16_1;
             },
             function (router_deprecated_5_1) {
                 router_deprecated_5 = router_deprecated_5_1;
@@ -1880,7 +1971,7 @@ System.register("j/ui/nav/nav-tree", ['@angular/core', '@angular/router-deprecat
                 function NavTree() {
                 }
                 NavTree = __decorate([
-                    core_15.Component({
+                    core_16.Component({
                         selector: 'nav-tree',
                         directives: [router_deprecated_5.ROUTER_DIRECTIVES, NavTree],
                         inputs: ['nodes:nodes'],
@@ -1890,19 +1981,19 @@ System.register("j/ui/nav/nav-tree", ['@angular/core', '@angular/router-deprecat
                 ], NavTree);
                 return NavTree;
             }());
-            exports_23("NavTree", NavTree);
+            exports_24("NavTree", NavTree);
         }
     }
 });
-System.register("j/ui/uploader/uploader", ['@angular/core'], function(exports_24, context_24) {
+System.register("j/ui/uploader/uploader", ['@angular/core'], function(exports_25, context_25) {
     "use strict";
-    var __moduleName = context_24 && context_24.id;
-    var core_16;
+    var __moduleName = context_25 && context_25.id;
+    var core_17;
     var Ufile, JUploader;
     return {
         setters:[
-            function (core_16_1) {
-                core_16 = core_16_1;
+            function (core_17_1) {
+                core_17 = core_17_1;
             }],
         execute: function() {
             Ufile = (function () {
@@ -1958,7 +2049,7 @@ System.register("j/ui/uploader/uploader", ['@angular/core'], function(exports_24
                     this.authToken = undefined;
                     this.fieldName = "file";
                     this._queue = [];
-                    this._emitter = new core_16.EventEmitter(true);
+                    this._emitter = new core_17.EventEmitter(true);
                 }
                 JUploader.prototype.setOptions = function (options) {
                     this.url = options.url != null ? options.url : this.url;
@@ -2073,24 +2164,24 @@ System.register("j/ui/uploader/uploader", ['@angular/core'], function(exports_24
                     return Math.random().toString(36).substring(7);
                 };
                 JUploader = __decorate([
-                    core_16.Injectable(), 
+                    core_17.Injectable(), 
                     __metadata('design:paramtypes', [])
                 ], JUploader);
                 return JUploader;
             }());
-            exports_24("JUploader", JUploader);
+            exports_25("JUploader", JUploader);
         }
     }
 });
-System.register("j/ui/uploader/select", ['@angular/core', "j/ui/uploader/uploader"], function(exports_25, context_25) {
+System.register("j/ui/uploader/select", ['@angular/core', "j/ui/uploader/uploader"], function(exports_26, context_26) {
     "use strict";
-    var __moduleName = context_25 && context_25.id;
-    var core_17, uploader_1;
+    var __moduleName = context_26 && context_26.id;
+    var core_18, uploader_1;
     var JUpload;
     return {
         setters:[
-            function (core_17_1) {
-                core_17 = core_17_1;
+            function (core_18_1) {
+                core_18 = core_18_1;
             },
             function (uploader_1_1) {
                 uploader_1 = uploader_1_1;
@@ -2100,7 +2191,7 @@ System.register("j/ui/uploader/select", ['@angular/core', "j/ui/uploader/uploade
                 function JUpload(el) {
                     var _this = this;
                     this.el = el;
-                    this.onUpload = new core_17.EventEmitter();
+                    this.onUpload = new core_18.EventEmitter();
                     this.uploader = new uploader_1.JUploader();
                     setTimeout(function () {
                         _this.uploader.setOptions(_this.options);
@@ -2116,29 +2207,83 @@ System.register("j/ui/uploader/select", ['@angular/core', "j/ui/uploader/uploade
                     }
                 };
                 JUpload = __decorate([
-                    core_17.Directive({
+                    core_18.Directive({
                         selector: '[j-upload]',
                         inputs: ['options: j-upload'],
                         outputs: ['onUpload'],
                         host: { '(change)': 'onFiles()' }
                     }), 
-                    __metadata('design:paramtypes', [core_17.ElementRef])
+                    __metadata('design:paramtypes', [core_18.ElementRef])
                 ], JUpload);
                 return JUpload;
             }());
-            exports_25("JUpload", JUpload);
+            exports_26("JUpload", JUpload);
         }
     }
 });
-System.register("j/ui", ["j/ui/jui", "j/ui/page/page", "j/ui/nav/nav-tree", "j/ui/uploader/uploader", "j/ui/uploader/select"], function(exports_26, context_26) {
+System.register("j/ui/zd/zd", ['@angular/core', "j/base/zd"], function(exports_27, context_27) {
     "use strict";
-    var __moduleName = context_26 && context_26.id;
+    var __moduleName = context_27 && context_27.id;
+    var core_19, zd_4;
+    var JUiZd;
+    return {
+        setters:[
+            function (core_19_1) {
+                core_19 = core_19_1;
+            },
+            function (zd_4_1) {
+                zd_4 = zd_4_1;
+            }],
+        execute: function() {
+            JUiZd = (function () {
+                function JUiZd(zd) {
+                    this.zd = zd;
+                    this.dmChange = new core_19.EventEmitter();
+                    this.jc = false;
+                }
+                JUiZd.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this.zd.get(this.bq).toArray().subscribe(function (data) { return _this.items = data; });
+                };
+                __decorate([
+                    core_19.Output(), 
+                    __metadata('design:type', core_19.EventEmitter)
+                ], JUiZd.prototype, "dmChange", void 0);
+                __decorate([
+                    core_19.Input('dm'), 
+                    __metadata('design:type', String)
+                ], JUiZd.prototype, "dm", void 0);
+                __decorate([
+                    core_19.Input('j-zd-bq'), 
+                    __metadata('design:type', String)
+                ], JUiZd.prototype, "bq", void 0);
+                __decorate([
+                    core_19.Input('j-zd-jc'), 
+                    __metadata('design:type', Boolean)
+                ], JUiZd.prototype, "jc", void 0);
+                JUiZd = __decorate([
+                    core_19.Component({
+                        selector: 'j-ui-zd',
+                        template: "<select class=\"form-control\" [ngModel]=\"dm\" (ngModelChange)=\"dmChange.emit($event)\">\n                    <option *ngFor=\"let item of items\" [value]='item.Dm'>{{item.Dm}} | {{jc?item.Jc:item.Mc}}</option>\n                </select>",
+                        directives: [],
+                    }), 
+                    __metadata('design:paramtypes', [zd_4.JZd])
+                ], JUiZd);
+                return JUiZd;
+            }());
+            exports_27("JUiZd", JUiZd);
+        }
+    }
+});
+System.register("j/ui", ["j/ui/jui", "j/ui/page/page", "j/ui/nav/nav-tree", "j/ui/uploader/uploader", "j/ui/uploader/select", "j/ui/zd/zd"], function(exports_28, context_28) {
+    "use strict";
+    var __moduleName = context_28 && context_28.id;
     function exportStar_5(m) {
         var exports = {};
         for(var n in m) {
             if (n !== "default") exports[n] = m[n];
         }
-        exports_26(exports);
+        exports_28(exports);
     }
     return {
         setters:[
@@ -2156,20 +2301,23 @@ System.register("j/ui", ["j/ui/jui", "j/ui/page/page", "j/ui/nav/nav-tree", "j/u
             },
             function (select_1_1) {
                 exportStar_5(select_1_1);
+            },
+            function (zd_5_1) {
+                exportStar_5(zd_5_1);
             }],
         execute: function() {
         }
     }
 });
-System.register("j/utils", ["j/utils/dom"], function(exports_27, context_27) {
+System.register("j/utils", ["j/utils/dom"], function(exports_29, context_29) {
     "use strict";
-    var __moduleName = context_27 && context_27.id;
+    var __moduleName = context_29 && context_29.id;
     function exportStar_6(m) {
         var exports = {};
         for(var n in m) {
             if (n !== "default") exports[n] = m[n];
         }
-        exports_27(exports);
+        exports_29(exports);
     }
     return {
         setters:[
@@ -2180,23 +2328,23 @@ System.register("j/utils", ["j/utils/dom"], function(exports_27, context_27) {
         }
     }
 });
-System.register("j", ["j/base", "j/core", "j/fw", "j/pipe", "j/ui", "j/utils"], function(exports_28, context_28) {
+System.register("j", ["j/base", "j/core", "j/fw", "j/pipe", "j/ui", "j/utils"], function(exports_30, context_30) {
     "use strict";
-    var __moduleName = context_28 && context_28.id;
+    var __moduleName = context_30 && context_30.id;
     function exportStar_7(m) {
         var exports = {};
         for(var n in m) {
             if (n !== "default") exports[n] = m[n];
         }
-        exports_28(exports);
+        exports_30(exports);
     }
     return {
         setters:[
             function (base_1_1) {
                 exportStar_7(base_1_1);
             },
-            function (core_18_1) {
-                exportStar_7(core_18_1);
+            function (core_20_1) {
+                exportStar_7(core_20_1);
             },
             function (fw_2_1) {
                 exportStar_7(fw_2_1);
