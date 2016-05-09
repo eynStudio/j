@@ -1,6 +1,6 @@
 {
   "name": "j",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "angular2 bootstrap4 components",
   "author": "eynStudio",
   "license": "MIT",
@@ -10,8 +10,7 @@
     "build": "tsc -w",
     "demo": "tsc -w -p cfg/tsconfig.demo.json",
     "lite": "lite-server -c cfg/bs-config.json",
-    "typings": "typings",
-    "postinstall": "typings install"
+    "typings": "typings"
   },
   "keywords": [
     "angular2",
