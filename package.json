@@ -1,0 +1,29 @@
+{
+  "name": "j",
+  "version": "0.0.1",
+  "author": "pengshengwang@gmail.com",
+  "scripts": {
+    "test": "mocha --compilers js:babel-register --require babel-polyfill"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.9.1",
+    "wolfy87-eventemitter": "^5.1.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "chai": "*",
+    "font-awesome": "^4.6.1",
+    "gulp": "^3.9.1",
+    "gulp-less": "^3.1.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "isomorphic-fetch": "^2.2.1",
+    "mocha": "*",
+    "mochawesome": "^1.3.5",
+    "moment": "^2.13.0",
+    "webpack-stream": "^3.2.0"
+  }
+}
